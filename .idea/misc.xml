@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_detalle.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_familia_elegir.xml" value="0.11570247933884298" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_familia_nueva.xml" value="0.25" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_login.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_quinta_elegir.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_quinta_nueva.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_visita.xml" value="0.1" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_visita_elegir.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_visita_nueva.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/quinta_item.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/visita_item.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/drawable/circle.xml" value="0.14444444444444443" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.240625" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/drawable/ic_round_person_24.xml" value="0.14444444444444443" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/drawable/rounded_edittext.xml" value="0.14444444444444443" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/drawable/shapes.xml" value="0.240625" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/font/fonts.xml" value="0.2546875" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_detalle.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_detalle_varia_c.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_elegir_familia.xml" value="0.75" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_familia_elegir.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_familia_nueva.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_quinta_elegir.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_quinta_nueva.xml" value="0.33" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_visita.xml" value="0.17" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/activity_visita_nueva.xml" value="0.221025641025641" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/detalle_simple.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/familia_item.xml" value="0.5" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/quinta_item.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/visita_item.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

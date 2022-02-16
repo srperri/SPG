@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/textViewFamiliaNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:backgroundTint="@color/verde_claro"
+        android:gravity="start"
+        android:padding="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewFamiliaId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:padding="10dp"
+        android:textSize="20sp" />
+
+</LinearLayout>

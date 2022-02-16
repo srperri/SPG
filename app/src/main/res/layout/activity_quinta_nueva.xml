@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".QuintaNuevaActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/quinta_nueva_title"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Nombre de la Familia"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/editTextFamiliaNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:fontFamily="@font/montserrat_bold"
+        android:inputType="none"
+        android:padding="10dp"
+        android:hint="Seleccione una Familia"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Nombre de la Quinta"
+        android:layout_marginTop="20dp" />
+    <EditText
+        android:id="@+id/editTextQuintaNombre"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:fontFamily="@font/montserrat_bold"
+        android:hint="Nombre"
+        android:inputType="textMultiLine"
+        android:padding="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Dirección"
+        android:layout_marginTop="20dp" />
+    <EditText
+        android:id="@+id/editTextDireccion"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:fontFamily="@font/montserrat_bold"
+        android:hint="Dirección"
+        android:inputType="textMultiLine"
+        android:padding="10dp" />
+
+    <Button
+        android:id="@+id/buttonGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/guardar_button"
+        app:cornerRadius="20dp"
+        android:onClick="guardar"
+        android:layout_marginTop="30dp" />
+
+
+</LinearLayout>

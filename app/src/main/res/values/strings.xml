@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Guía de Seguimiento SPG</string>
+    <string name="main_title_part1">Seguimiento de Cultivos</string>
+    <string name="main_title_part2">Agroecológicos</string>
+    <string name="init_session_button">iniciar</string>
+    <string name="element_text">ej_familia</string>
+    <string name="nuevo">Nueva</string>
+    <string name="quinta_nueva_title">Nueva Quinta</string>
+    <string name="guardar_button">Guardar</string>
+    <string name="visita_nueva_title">Nueva Visita</string>
+    <string name="ultimas_visitas_title">Últimas Visitas</string>
+    <string name="continuar">Continuar</string>
+    <string name="nueva_familia_title">Nueva Familia</string>
+    <string name="quinta_elegir_title">Seleccione una Quinta</string>
+    <string name="familia_elegir_Title">Selleccione una Familia</string>
+</resources>

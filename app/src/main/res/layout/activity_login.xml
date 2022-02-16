@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_rec2"
+    android:backgroundTintMode="add"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/title_part1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/main_title_part1"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_part2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/main_title_part2"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/main_title_part2"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/title_part1"
+        tools:layout_editor_absoluteX="157dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/circle"
+        android:cropToPadding="false"
+        android:minWidth="96dp"
+        android:minHeight="96dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_round_person_24" />
+
+    <EditText
+        android:id="@+id/editTextUser"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Usuario"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Clave"
+        android:inputType="textPassword"
+        android:padding="10dp" />
+
+    <Button
+        android:id="@+id/buttonInitSession"
+        android:layout_width="131dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/init_session_button"
+        app:cornerRadius="20dp"
+        android:onClick="init_session"/>
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="usuario nuevo ?"
+        android:textColor="@color/black" />
+
+
+
+</LinearLayout>
