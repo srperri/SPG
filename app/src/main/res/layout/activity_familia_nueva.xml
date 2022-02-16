@@ -29,7 +29,7 @@
         android:id="@+id/editTextFamilia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_edittext"
+        android:background="@drawable/rounded_background"
         android:fontFamily="@font/montserrat_bold"
         android:inputType="textCapWords"
         android:padding="10dp"

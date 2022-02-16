@@ -50,7 +50,7 @@
         android:padding="10dp"
         android:fontFamily="@font/montserrat_bold"
         android:inputType="textMultiLine"
-        android:background="@drawable/rounded_edittext"
+        android:background="@drawable/rounded_background"
         />
 
     <TextView
@@ -68,7 +68,7 @@
         android:padding="10dp"
         android:fontFamily="@font/montserrat_bold"
         android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
-        android:background="@drawable/rounded_edittext"
+        android:background="@drawable/rounded_background"
         />
 
     <TextView
@@ -86,7 +86,7 @@
         android:padding="10dp"
         android:fontFamily="@font/montserrat_bold"
         android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
-        android:background="@drawable/rounded_edittext"
+        android:background="@drawable/rounded_background"
         />
 
     <Button

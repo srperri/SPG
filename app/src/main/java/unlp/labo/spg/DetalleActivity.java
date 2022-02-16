@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import unlp.labo.spg.dao.VisitaDao;
 import unlp.labo.spg.model.AppDatabase;
 import unlp.labo.spg.model.Detalle;
 import unlp.labo.spg.model.TipoDetalle;

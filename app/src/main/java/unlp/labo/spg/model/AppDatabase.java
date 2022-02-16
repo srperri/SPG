@@ -17,7 +17,7 @@ import unlp.labo.spg.dao.VisitaDao;
                 Quinta.class,
                 Visita.class,
                 Detalle.class,
-        }, version = 17, exportSchema = false)
+        }, version = 20, exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
 

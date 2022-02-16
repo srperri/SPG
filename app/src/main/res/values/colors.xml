@@ -13,5 +13,7 @@
     <color name="verde_claro">#FF80AC69</color>
     <color name="fondo_item_visita">#f1f6be</color>
     <color name="fondo_boton_nuevo">#75a9f9</color>
+    <color name="familia_item_fondo">#ffa382</color>
+    <color name="quinta_item_fondo">#aedd94</color>
 
 </resources>

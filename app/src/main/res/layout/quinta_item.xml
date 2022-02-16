@@ -1,27 +1,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:padding="10dp">
-
-<TextView
-    android:id="@+id/textViewQuintaDireccion"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="start"
-    android:backgroundTint="@color/verde_claro"
-    android:gravity="start"
-    android:padding="10dp"
-    android:background="@drawable/rounded_edittext"
-    android:textSize="20sp" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:background="@drawable/rounded_background"
+    android:backgroundTint="@color/quinta_item_fondo"
+    android:orientation="horizontal"
+    android:padding="15dp">
 
-<TextView
-    android:id="@+id/textViewQuintaId"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="end"
-    android:gravity="end"
-    android:padding="10dp"
-    android:textSize="20sp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        app:srcCompat="@drawable/ic_baseline_grass_24" />
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+    <TextView
+        android:id="@+id/textViewQuintaNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textViewQuintaDirección"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textViewQuintaFamiliaNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:textSize="15dp" />
+
+    </LinearLayout>
 </LinearLayout>

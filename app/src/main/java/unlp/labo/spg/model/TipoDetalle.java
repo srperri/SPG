@@ -11,9 +11,9 @@ public enum TipoDetalle implements Serializable {
     BARRERA_INVER(5, "Barrera", "Invernáculo"),
     CORDON_CAMPO(6, "Cordón", "Campo"),
     CORDON_INVER(7, "Cordón", "Invernáculo");
-    private int id;
-    private String titulo;
-    private String subtitulo;
+    private final int id;
+    private final String titulo;
+    private final String subtitulo;
 
     TipoDetalle(int id, String titulo, String subtitulo) {
         this.id = id;

@@ -13,8 +13,8 @@ import java.util.List;
 
 public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder> {
 
-    private List<VisitaQuintaFamilia> mData;
-    private LayoutInflater mInflater;
+    private final List<VisitaQuintaFamilia> mData;
+    private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     VisitaAdapter(Context context, List<VisitaQuintaFamilia> data) {
@@ -48,10 +48,10 @@ public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView textViewVisitaFamiliaNombre;
-        TextView textViewVisitaFecha;
-        TextView textViewVisitaDireccion;
-        ImageView imageViewDelete;
+        final TextView textViewVisitaFamiliaNombre;
+        final TextView textViewVisitaFecha;
+        final TextView textViewVisitaDireccion;
+        final ImageView imageViewDelete;
 
 
         public ViewHolder(View view) {

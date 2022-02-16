@@ -29,7 +29,7 @@ public interface QuintaDao {
 
         @Transaction
         @Query("SELECT * FROM quinta")
-        public List<QuintaFamilia> getQuintaYFamilia();
+        List<QuintaFamilia> getQuintaYFamilia();
 
 
 }

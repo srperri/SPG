@@ -11,7 +11,7 @@ public class Familia implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public long id;
-    public String nombre;
+    public final String nombre;
 
     public Familia(String nombre){
         this.nombre =nombre;

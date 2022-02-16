@@ -14,8 +14,8 @@ import java.util.List;
 
 public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHolder> {
 
-    private List<Familia> mData;
-    private LayoutInflater mInflater;
+    private final List<Familia> mData;
+    private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     FamiliaAdapter(Context context, List<Familia> data) {
@@ -39,7 +39,6 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
         // contents of the view with that element
         Familia mFamilia=mData.get(position);
         viewHolder.textViewNombre.setText(mFamilia.nombre);
-        viewHolder.textViewId.setText(Long.toString(mFamilia.id));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -49,15 +48,13 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
-        TextView textViewNombre;
-        TextView textViewId;
+        final TextView textViewNombre;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
             textViewNombre = (TextView) view.findViewById(R.id.textViewFamiliaNombre);
-            textViewId = (TextView) view.findViewById(R.id.textViewFamiliaId);
             itemView.setOnClickListener(this);
         }
 
@@ -66,9 +63,6 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
 
-//        public TextView getTextView() {
-//            return textView;
-//        }
     }
     Familia getItem(int id) {
         return mData.get(id);

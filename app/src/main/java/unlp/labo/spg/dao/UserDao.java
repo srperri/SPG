@@ -7,8 +7,6 @@ import androidx.room.Query;
 
 import unlp.labo.spg.model.User;
 
-import java.util.List;
-
 @Dao
 public interface UserDao {
 
@@ -20,7 +18,7 @@ public interface UserDao {
     boolean empty();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(User user);
+    long insert(User user);
 
     @Query("DELETE FROM user")
     void deleteAll();

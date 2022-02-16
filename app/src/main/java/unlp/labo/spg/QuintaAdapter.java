@@ -15,8 +15,8 @@ import unlp.labo.spg.model.QuintaFamilia;
 public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder> {
 
     //    private List<Quinta> mData;
-    private List<QuintaFamilia> mData;
-    private LayoutInflater mInflater;
+    private final List<QuintaFamilia> mData;
+    private final LayoutInflater mInflater;
     private QuintaAdapter.ItemClickListener mClickListener;
 
     QuintaAdapter(Context context, List<QuintaFamilia> data) {
@@ -38,8 +38,9 @@ public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         QuintaFamilia mQuintaFamilia = mData.get(position);
-        viewHolder.textViewQuintaDireccion.setText(mQuintaFamilia.quinta.direccion + " de " + mQuintaFamilia.familia.nombre);
-        viewHolder.textViewQuintaId.setText(Long.toString(mQuintaFamilia.quinta.id));
+        viewHolder.textViewQuintaNombre.setText(mQuintaFamilia.quinta.nombre);
+        viewHolder.textViewQuintaDireccion.setText(mQuintaFamilia.quinta.direccion);
+        viewHolder.textViewQuintaFamiliaNombre.setText("De:" + mQuintaFamilia.familia.nombre);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -49,15 +50,17 @@ public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView textViewQuintaDireccion;
-        TextView textViewQuintaId;
+        final TextView textViewQuintaNombre;
+        final TextView textViewQuintaDireccion;
+        final TextView textViewQuintaFamiliaNombre;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
-            textViewQuintaDireccion = (TextView) view.findViewById(R.id.textViewQuintaDireccion);
-            textViewQuintaId = (TextView) view.findViewById(R.id.textViewQuintaId);
+            textViewQuintaNombre = (TextView) view.findViewById(R.id.textViewQuintaNombre);
+            textViewQuintaDireccion = (TextView) view.findViewById(R.id.textViewQuintaDirección);
+            textViewQuintaFamiliaNombre = (TextView) view.findViewById(R.id.textViewQuintaFamiliaNombre);
             itemView.setOnClickListener(this);
         }
 

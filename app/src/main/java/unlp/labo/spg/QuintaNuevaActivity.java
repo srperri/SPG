@@ -16,7 +16,7 @@ import unlp.labo.spg.model.Quinta;
 public class QuintaNuevaActivity extends AppCompatActivity {
     public static final String EXTRA_REPLY_QUINTA="quinta";
 
-    private Quinta mQuinta = new Quinta();
+    private final Quinta mQuinta = new Quinta();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
