@@ -37,11 +37,15 @@ public class VisitaActivity extends AppCompatActivity {
             etQuintaNombre.setText(mQuinta.nombre.toString());
         }
         EditText etSupCampo = (EditText) findViewById(R.id.editTextSupCampo);
-        etSupCampo.setText(String.valueOf(mVisitaDetalle.visita.supCampo));
+        if(mVisitaDetalle.visita.supCampo>0){
+            etSupCampo.setText(String.valueOf(mVisitaDetalle.visita.supCampo));
+        }
         etSupCampo.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         EditText etSupInver = (EditText) findViewById(R.id.editTextSupInver);
         etSupCampo.setImeOptions(EditorInfo.IME_ACTION_GO);
-        etSupInver.setText(String.valueOf(mVisitaDetalle.visita.supInver));
+        if(mVisitaDetalle.visita.supInver>0){
+            etSupInver.setText(String.valueOf(mVisitaDetalle.visita.supInver));
+        }
         etQuintaNombre.setInputType(InputType.TYPE_NULL);
         etQuintaNombre.setOnClickListener(view -> {
             Intent intent = new Intent(this.getApplication(), QuintaElegirActivity.class);

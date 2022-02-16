@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     public void init_session(View view) {
         EditText etUserName = (EditText) findViewById(R.id.editTextUser);
         String userName = etUserName.getText().toString();
-        if (userName == "reinit") {
+        if (userName.equalsIgnoreCase("reinit")) {
             reinit_db();
             Toast.makeText(this, "Se Reinicio la Base de Datos", Toast.LENGTH_SHORT).show();
             return;
@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         mVisitaDetalle1.visita = new Visita();
         mVisitaDetalle1.visita.userId = user2.getUid();
         mVisitaDetalle1.visita.fecha = "06/01/2022";
+        mVisitaDetalle1.visita.quintaId=quinta1.id;
         mVisitaDetalle1.detalles = new ArrayList<>();
         for (TipoDetalle t : TipoDetalle.values()) {
             Detalle mDetalle = new Detalle();
@@ -120,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
         VisitaDetalle mVisitaDetalle2 = new VisitaDetalle();
         mVisitaDetalle2.visita = new Visita();
         mVisitaDetalle2.visita.userId = user2.getUid();
+        mVisitaDetalle2.visita.quintaId=quinta4.id;
         mVisitaDetalle2.visita.fecha = "14/02/2022";
         mVisitaDetalle2.detalles = new ArrayList<>();
         for (TipoDetalle t : TipoDetalle.values()) {
