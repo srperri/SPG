@@ -4,22 +4,30 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder> {
+import unlp.labo.spg.model.Visita;
+
+public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder> implements Filterable {
 
     private final List<VisitaQuintaFamilia> mData;
+    private final List<VisitaQuintaFamilia> mDataAll;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     VisitaAdapter(Context context, List<VisitaQuintaFamilia> data) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.mData = new ArrayList<>(data);
+        this.mDataAll = data;
     }
 
     // Create new views (invoked by the layout manager)
@@ -29,6 +37,7 @@ public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder
         View view = mInflater.inflate(R.layout.visita_item, viewGroup, false);
         return new ViewHolder(view);
     }
+
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
@@ -45,6 +54,40 @@ public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder
     public int getItemCount() {
         return mData.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return visitaFilter;
+    }
+
+    private final Filter visitaFilter= new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<VisitaQuintaFamilia> filteredData = new ArrayList<>();
+            FilterResults filterResults = new FilterResults();
+            if (charSequence == null || charSequence.length() == 0) {
+                filteredData.addAll(mDataAll);
+            } else {
+                for (VisitaQuintaFamilia v : mDataAll) {
+                    if (v.quintaFamilia.familia.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
+                        filteredData.add(v);
+                    }
+                }
+            }
+
+            filterResults.values = filteredData;
+            filterResults.count = filteredData.size();
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            mData.clear();
+            mData.addAll((List<VisitaQuintaFamilia>) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

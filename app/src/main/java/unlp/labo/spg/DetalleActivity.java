@@ -19,7 +19,7 @@ import unlp.labo.spg.model.VisitaDetalle;
 public class DetalleActivity extends AppCompatActivity {
 
     public static final String EXTRA_VISITA_DETALLE = "visitaDetalle";
-    public static final String EXTRA_TIPO_DETALLE_ID = "tipoDetalleId";
+//    public static final String EXTRA_TIPO_DETALLE_ID = "tipoDetalleId";
     protected VisitaDetalle mVisitaDetalle;
     protected Detalle mDetalle;
     protected TipoDetalle mTipoDetalle;
@@ -29,9 +29,9 @@ public class DetalleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle);
         mVisitaDetalle = (VisitaDetalle) getIntent().getSerializableExtra(EXTRA_VISITA_DETALLE);
-        int mTipoDetalleId = getIntent().getIntExtra(EXTRA_TIPO_DETALLE_ID, 0);
-        mTipoDetalle = TipoDetalle.values()[mTipoDetalleId];
-        mDetalle = mVisitaDetalle.getDetalleByTipoId(mTipoDetalleId);
+//        int mTipoDetalleId = getIntent().getIntExtra(EXTRA_TIPO_DETALLE_ID, 0);
+        mTipoDetalle = TipoDetalle.values()[0];
+        mDetalle = mVisitaDetalle.getDetalleByTipoId(mTipoDetalle.id());
     }
 
     @Override
@@ -76,13 +76,18 @@ public class DetalleActivity extends AppCompatActivity {
         EditText etSugerencia = findViewById(R.id.detalle_sugerencia);
         mDetalle.sugerencia = etSugerencia.getText().toString();
         if (mTipoDetalle.id() + 1 < TipoDetalle.values().length) {
-            Intent intent = new Intent(this.getApplication(), DetalleActivity.class);
-            intent.putExtra(EXTRA_VISITA_DETALLE, mVisitaDetalle);
-            intent.putExtra(EXTRA_TIPO_DETALLE_ID, mTipoDetalle.id() + 1);
-            startActivity(intent);
+//            Intent intent = new Intent(this.getApplication(), DetalleActivity.class);
+//            intent.putExtra(EXTRA_VISITA_DETALLE, mVisitaDetalle);
+//            intent.putExtra(EXTRA_TIPO_DETALLE_ID, mTipoDetalle.id() + 1);
+//            startActivity(intent);
+            mTipoDetalle = TipoDetalle.values()[mTipoDetalle.id()+1];
+            mDetalle = mVisitaDetalle.getDetalleByTipoId(mTipoDetalle.id());
+            this.onStart();
+
         } else {
             AppDatabase.getInstance(this).visitaDao().insertVisitaDetalle(mVisitaDetalle);
+            finish();
         }
-        finish();
+
     }
 }

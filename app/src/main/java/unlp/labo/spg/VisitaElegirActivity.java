@@ -1,5 +1,6 @@
 package unlp.labo.spg;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import unlp.labo.spg.model.AppDatabase;
@@ -28,6 +32,7 @@ public class VisitaElegirActivity extends AppCompatActivity implements VisitaAda
     RecyclerView mRecyclerView;
     AppDatabase db ;
     long uid;
+    private Menu mOptionsMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,38 @@ public class VisitaElegirActivity extends AppCompatActivity implements VisitaAda
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        mOptionsMenu=menu;
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem buscar= menu.findItem(R.id.menu_buscar);
+        SearchView sv= (SearchView) buscar.getActionView();
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                mAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_buscar:
+                Toast.makeText(this, "Menu buscar", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         List<VisitaQuintaFamilia> mVisitas;
@@ -49,6 +86,11 @@ public class VisitaElegirActivity extends AppCompatActivity implements VisitaAda
         mAdapter = new VisitaAdapter(this, mVisitas);
         mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+        if (mOptionsMenu!=null){
+            SearchView searchView = (SearchView) mOptionsMenu.findItem(R.id.menu_buscar).getActionView();
+            searchView.setIconified(true);
+            searchView.onActionViewCollapsed();
+        }
 
     }
 
