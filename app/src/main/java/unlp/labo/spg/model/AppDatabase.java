@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import unlp.labo.spg.dao.FamiliaDao;
+import unlp.labo.spg.dao.PersonaDao;
 import unlp.labo.spg.dao.QuintaDao;
 import unlp.labo.spg.dao.UserDao;
 import unlp.labo.spg.dao.VisitaDao;
@@ -17,7 +18,8 @@ import unlp.labo.spg.dao.VisitaDao;
                 Quinta.class,
                 Visita.class,
                 Detalle.class,
-        }, version = 20, exportSchema = false)
+                Persona.class,
+        }, version = 21, exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -30,6 +32,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract QuintaDao quintaDao();
 
     public abstract VisitaDao visitaDao();
+
+    public abstract PersonaDao personaDaoDao();
 
     public static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {

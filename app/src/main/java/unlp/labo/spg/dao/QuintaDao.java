@@ -31,5 +31,4 @@ public interface QuintaDao {
         @Query("SELECT * FROM quinta")
         List<QuintaFamilia> getQuintaYFamilia();
 
-
 }
