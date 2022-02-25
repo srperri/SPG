@@ -12,7 +12,10 @@
         android:theme="@style/Theme.SeguimientoSPG"
         tools:ignore="ExtraText">
         <activity
-            android:name="DetalleActivity"
+            android:name=".UsuarioNuevoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetalleActivity"
             android:exported="false" />
         <activity
             android:name=".VisitaActivity"
@@ -21,19 +24,19 @@
             android:name=".VisitaElegirActivity"
             android:exported="false" />
         <activity
-            android:name="QuintaElegirActivity"
+            android:name=".QuintaElegirActivity"
             android:exported="false" />
         <activity
-            android:name="QuintaNuevaActivity"
+            android:name=".QuintaNuevaActivity"
             android:exported="false" />
         <activity
-            android:name="FamiliaNuevaActivity"
+            android:name=".FamiliaNuevaActivity"
             android:exported="false" />
         <activity
-            android:name="FamiliaElegirActivity"
+            android:name=".FamiliaElegirActivity"
             android:exported="false" />
         <activity
-            android:name="LoginActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

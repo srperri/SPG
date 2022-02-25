@@ -13,4 +13,6 @@
     <string name="nueva_familia_title">Nueva Familia</string>
     <string name="quinta_elegir_title">Seleccione una Quinta</string>
     <string name="familia_elegir_Title">Seleccione una Familia</string>
+    <string name="usuario_nuevo_title">Usuario Nuevo</string>
+    <string name="agregar_miembro_button">Agregar</string>
 </resources>
