@@ -9,17 +9,14 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(foreignKeys = {@ForeignKey(onDelete = CASCADE, entity = Usuario.class, parentColumns = "uid", childColumns = "userId")},
-        indices = {@Index("userId")})
-public class Familia implements Serializable {
-
-
+@Entity(foreignKeys = {@ForeignKey(onDelete = CASCADE, entity = Usuario.class, parentColumns = "uid", childColumns = "usuarioId")},
+        indices = {@Index("usuarioId")})
+public class Miembro implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public long id;
-    public long userId;
+    public long usuarioId;
     public String nombre;
-
-    public Familia(){
-    }
+    public String apellido;
+    public Rol rol;
 
 }

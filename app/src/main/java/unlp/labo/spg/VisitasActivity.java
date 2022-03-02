@@ -19,6 +19,8 @@ import unlp.labo.spg.model.Detalle;
 import unlp.labo.spg.model.TipoDetalle;
 import unlp.labo.spg.model.Visita;
 import unlp.labo.spg.model.VisitaDetalle;
+import unlp.labo.spg.model.VisitaQuintaFamilia;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -26,32 +28,38 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class VisitaElegirActivity extends AppCompatActivity implements VisitaAdapter.ItemClickListener {
+public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.ItemClickListener {
 
     VisitaAdapter mAdapter;
     RecyclerView mRecyclerView;
-    AppDatabase db ;
+    AppDatabase db;
     long uid;
     private Menu mOptionsMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visita_elegir);
-        uid = getIntent().getLongExtra(Intent.EXTRA_UID,0);
+        setContentView(R.layout.activity_visitas);
+        uid = getIntent().getLongExtra(Intent.EXTRA_UID, 0);
+        if (uid == 0) {
+            startActivity(new Intent(this.getApplication(), LoginActivity.class));
+            finish();
+        }
         db = AppDatabase.getInstance(this.getApplication());
-        mRecyclerView = findViewById(R.id.visitaRecyclerview);
+        mRecyclerView = findViewById(R.id.rvVisitas);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        FloatingActionButton mFAB= findViewById(R.id.visitaNueva);
-        mFAB.setOnClickListener(view -> {nueva_visita();});
+        FloatingActionButton mFAB = findViewById(R.id.faVisitasNueva);
+        mFAB.setOnClickListener(view -> {
+            nueva_visita();
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mOptionsMenu=menu;
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem buscar= menu.findItem(R.id.menu_buscar);
-        SearchView sv= (SearchView) buscar.getActionView();
+        mOptionsMenu = menu;
+        getMenuInflater().inflate(R.menu.menu_visitas, menu);
+        MenuItem buscar = menu.findItem(R.id.itMenuVisitaFiltrar);
+        SearchView sv = (SearchView) buscar.getActionView();
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -70,9 +78,27 @@ public class VisitaElegirActivity extends AppCompatActivity implements VisitaAda
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menu_buscar:
-                Toast.makeText(this, "Menu buscar", Toast.LENGTH_SHORT).show();
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.itMenuVisitasFamilias:
+                intent =new Intent(this.getApplication(), FamiliasActivity.class);
+                intent.putExtra(Intent.EXTRA_UID, uid);
+                startActivity(intent);
+                return true;
+            case R.id.itMenuVisitasQuintas:
+                intent= new Intent(this.getApplication(), QuintasActivity.class);
+                intent.putExtra(Intent.EXTRA_UID, uid);
+                startActivity(intent);
+                return true;
+            case R.id.itMenuVisitasUsuario:
+                intent = new Intent(this, UsuarioEditarActivity.class);
+                intent.putExtra(Intent.EXTRA_UID, uid);
+                startActivity(intent);
+                return true;
+            case R.id.itMenuVisitasCerrarSesion:
+                intent=new Intent(this.getApplication(), LoginActivity.class);
+                startActivity(intent);
+                finish();
                 return true;
         }
         return false;
@@ -81,13 +107,12 @@ public class VisitaElegirActivity extends AppCompatActivity implements VisitaAda
     @Override
     public void onResume() {
         super.onResume();
-        List<VisitaQuintaFamilia> mVisitas;
-        mVisitas = db.visitaDao().getVisitaQuintaFamiliaByUserId(uid);
+        List<VisitaQuintaFamilia> mVisitas = db.visitaDao().getVisitaQuintaFamilia(uid);
         mAdapter = new VisitaAdapter(this, mVisitas);
         mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
-        if (mOptionsMenu!=null){
-            SearchView searchView = (SearchView) mOptionsMenu.findItem(R.id.menu_buscar).getActionView();
+        if (mOptionsMenu != null) {
+            SearchView searchView = (SearchView) mOptionsMenu.findItem(R.id.itMenuVisitaFiltrar).getActionView();
             searchView.setIconified(true);
             searchView.onActionViewCollapsed();
         }
@@ -96,38 +121,46 @@ public class VisitaElegirActivity extends AppCompatActivity implements VisitaAda
 
 
     @Override
-    public void onItemEditClick(int position) {
+    public void onItemClick(int position) {
         VisitaDetalle mVisitaDetalle = db.visitaDao().getVisitaDetalleById(mAdapter.getItem(position).visita.id);
-        Intent intent = new Intent(this.getApplication(), VisitaActivity.class);
-        intent.putExtra(VisitaActivity.EXTRA_VISITA_DETALLE,mVisitaDetalle);
+        Intent intent = new Intent(this.getApplication(), VisitaInfoActivity.class);
+        intent.putExtra(Intent.EXTRA_UID, uid);
+        intent.putExtra(VisitaInfoActivity.EXTRA_VISITA_DETALLE, mVisitaDetalle);
         startActivity(intent);
     }
+
     @Override
-    public void onItemDeleteClick(int position) {
+    public void onItemEditarClick(int position) {
+        VisitaDetalle mVisitaDetalle = db.visitaDao().getVisitaDetalleById(mAdapter.getItem(position).visita.id);
+        Intent intent = new Intent(this.getApplication(), VisitaEditarActivity.class);
+        intent.putExtra(Intent.EXTRA_UID, uid);
+        intent.putExtra(VisitaEditarActivity.EXTRA_VISITA_DETALLE, mVisitaDetalle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemBorrarClick(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Confirma que desea eliminar la visita?")
                 .setTitle("Alerta")
                 .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         db.visitaDao().deleteById(mAdapter.getItem(position).visita.id);
+                        Toast.makeText(getApplicationContext(), "Se borró la visita a " + mAdapter.getItem(position).quintaFamilia.familia.nombre + ".", Toast.LENGTH_SHORT).show();
                         onResume();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // CANCEL
                     }
                 });
-        // Create the AlertDialog object and return it
-        AlertDialog mAlert= builder.create();
+        AlertDialog mAlert = builder.create();
         mAlert.show();
-        Toast.makeText(this, "Borrar visita a " + mAdapter.getItem(position).quintaFamilia.familia.nombre+"?", Toast.LENGTH_SHORT).show();
     }
 
     public void nueva_visita() {
-        VisitaDetalle mVisitaDetalle= new VisitaDetalle();
+        VisitaDetalle mVisitaDetalle = new VisitaDetalle();
         mVisitaDetalle.visita = new Visita();
-        mVisitaDetalle.visita.userId = uid;
         mVisitaDetalle.visita.fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         mVisitaDetalle.detalles = new ArrayList<>();
         for (TipoDetalle t : TipoDetalle.values()) {
@@ -135,8 +168,9 @@ public class VisitaElegirActivity extends AppCompatActivity implements VisitaAda
             mDetalle.tipoId = t.id();
             mVisitaDetalle.detalles.add(mDetalle);
         }
-        Intent intent = new Intent(this.getApplication(), VisitaActivity.class);
-        intent.putExtra(VisitaActivity.EXTRA_VISITA_DETALLE,mVisitaDetalle);
+        Intent intent = new Intent(this.getApplication(), VisitaEditarActivity.class);
+        intent.putExtra(Intent.EXTRA_UID, uid);
+        intent.putExtra(VisitaEditarActivity.EXTRA_VISITA_DETALLE, mVisitaDetalle);
         startActivity(intent);
     }
 

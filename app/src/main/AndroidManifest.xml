@@ -12,28 +12,37 @@
         android:theme="@style/Theme.SeguimientoSPG"
         tools:ignore="ExtraText">
         <activity
-            android:name=".UsuarioNuevoActivity"
+            android:name=".FamiliaInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuintaInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VisitaInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FamiliasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UsuarioEditarActivity"
             android:exported="false" />
         <activity
             android:name=".DetalleActivity"
             android:exported="false" />
         <activity
-            android:name=".VisitaActivity"
+            android:name=".VisitaEditarActivity"
             android:exported="false" />
         <activity
-            android:name=".VisitaElegirActivity"
+            android:name=".VisitasActivity"
             android:exported="false" />
         <activity
-            android:name=".QuintaElegirActivity"
+            android:name=".QuintasActivity"
             android:exported="false" />
         <activity
-            android:name=".QuintaNuevaActivity"
+            android:name=".QuintaEditarActivity"
             android:exported="false" />
         <activity
-            android:name=".FamiliaNuevaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FamiliaElegirActivity"
+            android:name=".FamiliaEditarActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

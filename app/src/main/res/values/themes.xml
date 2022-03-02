@@ -15,4 +15,9 @@
         <item name="fontFamily">@font/montserrat</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/teal_200</item>
+        <item name="colorControlActivated">@color/teal_200</item>
+    </style>
+
 </resources>

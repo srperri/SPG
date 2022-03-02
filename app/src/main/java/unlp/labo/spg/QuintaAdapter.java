@@ -4,69 +4,114 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import unlp.labo.spg.model.QuintaFamilia;
 
-public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder> {
+public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder>  implements Filterable {
 
-    //    private List<Quinta> mData;
     private final List<QuintaFamilia> mData;
+    private final List<QuintaFamilia> mDataAll;
     private final LayoutInflater mInflater;
     private QuintaAdapter.ItemClickListener mClickListener;
 
     QuintaAdapter(Context context, List<QuintaFamilia> data) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.mDataAll = data;
+        this.mData = new ArrayList<>(data);
     }
 
     // Create new views (invoked by the layout manager)
     @Override
     public QuintaAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view = mInflater.inflate(R.layout.quinta_item, viewGroup, false);
         return new unlp.labo.spg.QuintaAdapter.ViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(unlp.labo.spg.QuintaAdapter.ViewHolder viewHolder, int position) {
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
         QuintaFamilia mQuintaFamilia = mData.get(position);
-        viewHolder.textViewQuintaNombre.setText(mQuintaFamilia.quinta.nombre);
-        viewHolder.textViewQuintaDireccion.setText(mQuintaFamilia.quinta.direccion);
-        viewHolder.textViewQuintaFamiliaNombre.setText("De:" + mQuintaFamilia.familia.nombre);
+        viewHolder.tvNombre.setText(mQuintaFamilia.quinta.nombre);
+        viewHolder.tvDireccion.setText(mQuintaFamilia.quinta.direccion);
+        viewHolder.tvFamiliaNombre.setText("De:" + mQuintaFamilia.familia.nombre);
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mData.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        Filter quintaFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                List<QuintaFamilia> filteredData = new ArrayList<>();
+                FilterResults filterResults = new FilterResults();
+                if (charSequence == null || charSequence.length() == 0) {
+                    filteredData.addAll(mDataAll);
+                } else {
+                    for (QuintaFamilia quintaFamilia : mDataAll) {
+                        if (quintaFamilia.quinta.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
+                            filteredData.add(quintaFamilia);
+                        }
+                    }
+                }
+                filterResults.values = filteredData;
+                filterResults.count = filteredData.size();
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mData.clear();
+                mData.addAll((List<QuintaFamilia>) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
+        return quintaFilter;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final TextView textViewQuintaNombre;
-        final TextView textViewQuintaDireccion;
-        final TextView textViewQuintaFamiliaNombre;
+        final TextView tvNombre;
+        final TextView tvDireccion;
+        final TextView tvFamiliaNombre;
+        final ImageButton ibEditar;
+        final ImageButton ibBorrar;
 
         public ViewHolder(View view) {
             super(view);
-            // Define click listener for the ViewHolder's View
-
-            textViewQuintaNombre = (TextView) view.findViewById(R.id.textViewQuintaNombre);
-            textViewQuintaDireccion = (TextView) view.findViewById(R.id.textViewQuintaDirección);
-            textViewQuintaFamiliaNombre = (TextView) view.findViewById(R.id.textViewQuintaFamiliaNombre);
+            tvNombre = (TextView) view.findViewById(R.id.tvItemQuintaNombre);
+            tvDireccion = (TextView) view.findViewById(R.id.tvItemQuintaDirección);
+            tvFamiliaNombre = (TextView) view.findViewById(R.id.tvItemQuintaFamiliaNombre);
+            ibEditar = (ImageButton) view.findViewById(R.id.ibItemQuintaEditar);
+            ibBorrar = (ImageButton) view.findViewById(R.id.ibItemQuintaBorrar);
+            ibEditar.setOnClickListener(this);
+            ibBorrar.setOnClickListener(this);
             itemView.setOnClickListener(this);
+
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            switch (view.getId()) {
+                case R.id.ibItemQuintaBorrar:
+                    mClickListener.onItemBorrarClick(this.getLayoutPosition());
+                    break;
+                case R.id.ibItemQuintaEditar:
+                    mClickListener.onItemEditarClick(this.getLayoutPosition());
+                    break;
+                default:
+                    mClickListener.onItemClick(this.getLayoutPosition());
+            }
         }
     }
 
@@ -74,12 +119,15 @@ public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder
         return mData.get(id);
     }
 
-    // allows clicks events to be caught
     void setClickListener(QuintaAdapter.ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(int position);
+
+        void onItemEditarClick(int position);
+
+        void onItemBorrarClick(int position);
     }
 }

@@ -4,26 +4,31 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import unlp.labo.spg.model.Familia;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHolder> {
+public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHolder> implements Filterable {
 
     private final List<Familia> mData;
+    private final List<Familia> mDataAll;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     FamiliaAdapter(Context context, List<Familia> data) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.mDataAll = data;
+        this.mData = new ArrayList<>(data);
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
@@ -31,50 +36,93 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
         return new ViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        Familia mFamilia=mData.get(position);
-        viewHolder.textViewNombre.setText(mFamilia.nombre);
+        Familia mFamilia = mData.get(position);
+        viewHolder.tvNombre.setText(mFamilia.nombre);
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
-        final TextView textViewNombre;
+    @Override
+    public Filter getFilter() {
+        Filter familiaFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                List<Familia> filteredData = new ArrayList<>();
+                FilterResults filterResults = new FilterResults();
+                if (charSequence == null || charSequence.length() == 0) {
+                    filteredData.addAll(mDataAll);
+                } else {
+                    for (Familia f : mDataAll) {
+                        if (f.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
+                            filteredData.add(f);
+                        }
+                    }
+                }
+                filterResults.values = filteredData;
+                filterResults.count = filteredData.size();
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mData.clear();
+                mData.addAll((List<Familia>) filterResults.values);
+                notifyDataSetChanged();
+            }
+
+        };
+        return familiaFilter;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        final TextView tvNombre;
+        final ImageButton ibBorrar;
+        final ImageButton ibEditar;
 
         public ViewHolder(View view) {
             super(view);
-            // Define click listener for the ViewHolder's View
-
-            textViewNombre = (TextView) view.findViewById(R.id.textViewFamiliaNombre);
+            tvNombre = view.findViewById(R.id.tvItemFamiliaNombre);
+            ibBorrar = view.findViewById(R.id.ibItemFamiliaBorrar);
+            ibEditar = view.findViewById(R.id.ibItemFamiliaEditar);
+            ibEditar.setOnClickListener(this);
+            ibBorrar.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            switch (view.getId()) {
+                case R.id.ibItemFamiliaBorrar:
+                    mClickListener.onItemBorrarClick(this.getLayoutPosition());
+                    break;
+                case R.id.ibItemFamiliaEditar:
+                    mClickListener.onItemEditarClick(this.getLayoutPosition());
+                    break;
+                default:
+                    mClickListener.onItemClick(this.getLayoutPosition());
+            }
         }
-
     }
+
     Familia getItem(int id) {
         return mData.get(id);
     }
 
-    // allows clicks events to be caught
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(int position);
+
+        void onItemEditarClick(int position);
+
+        void onItemBorrarClick(int position);
     }
 }
 

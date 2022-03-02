@@ -4,19 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-@Entity(indices = {@Index(value = "userName", unique = true)})
-public class User {
+@Entity(indices = {@Index(value = "nombre", unique = true)})
+public class Usuario {
     @PrimaryKey(autoGenerate = true)
     private long uid;
 
     @NonNull
-    private String userName;
+    private String nombre;
 
     @NonNull
     private String password;
 
-    public User(@NonNull String userName, @NonNull String password) {
-        this.userName = userName;
+    public Usuario(@NonNull String nombre, @NonNull String password) {
+        this.nombre = nombre;
         this.password = password;
 
     }
@@ -25,12 +25,12 @@ public class User {
 
     public void setUid(long uid) { this.uid = uid; }
 
-    public String getUserName() {
-        return userName;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setUserName(@NonNull String userName) {
-        this.userName = userName;
+    public void setNombre(@NonNull String nombre) {
+        this.nombre = nombre;
     }
 
     public String getPassword() {

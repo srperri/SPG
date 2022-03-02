@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import unlp.labo.spg.model.Visita;
+import unlp.labo.spg.model.VisitaQuintaFamilia;
 
 public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder> implements Filterable {
 
@@ -26,30 +25,25 @@ public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder
 
     VisitaAdapter(Context context, List<VisitaQuintaFamilia> data) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = new ArrayList<>(data);
         this.mDataAll = data;
+        this.mData = new ArrayList<>(data);
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view = mInflater.inflate(R.layout.visita_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
-
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(VisitaAdapter.ViewHolder viewHolder, int position) {
         VisitaQuintaFamilia mVisita = mData.get(position);
-        viewHolder.textViewVisitaFamiliaNombre.setText(mVisita.quintaFamilia.familia.nombre);
-        viewHolder.textViewVisitaFecha.setText(mVisita.visita.fecha);
-        viewHolder.textViewVisitaDireccion.setText(mVisita.quintaFamilia.quinta.direccion);
-
+        viewHolder.tvFamiliaNombre.setText(mVisita.quintaFamilia.familia.nombre);
+        viewHolder.tvQuintaNombre.setText(mVisita.quintaFamilia.quinta.nombre);
+        viewHolder.tvFecha.setText(mVisita.visita.fecha);
+        viewHolder.tvDireccion.setText(mVisita.quintaFamilia.quinta.direccion);
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mData.size();
@@ -57,65 +51,73 @@ public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder
 
     @Override
     public Filter getFilter() {
+        Filter visitaFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                List<VisitaQuintaFamilia> filteredData = new ArrayList<>();
+                FilterResults filterResults = new FilterResults();
+                if (charSequence == null || charSequence.length() == 0) {
+                    filteredData.addAll(mDataAll);
+                } else {
+                    for (VisitaQuintaFamilia v : mDataAll) {
+                        if (v.quintaFamilia.familia.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
+                            filteredData.add(v);
+                        }
+                    }
+                }
+                filterResults.values = filteredData;
+                filterResults.count = filteredData.size();
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mData.clear();
+                mData.addAll((List<VisitaQuintaFamilia>) filterResults.values);
+                notifyDataSetChanged();
+            }
+
+        };
         return visitaFilter;
     }
 
-    private final Filter visitaFilter= new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<VisitaQuintaFamilia> filteredData = new ArrayList<>();
-            FilterResults filterResults = new FilterResults();
-            if (charSequence == null || charSequence.length() == 0) {
-                filteredData.addAll(mDataAll);
-            } else {
-                for (VisitaQuintaFamilia v : mDataAll) {
-                    if (v.quintaFamilia.familia.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
-                        filteredData.add(v);
-                    }
-                }
-            }
-
-            filterResults.values = filteredData;
-            filterResults.count = filteredData.size();
-
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            mData.clear();
-            mData.addAll((List<VisitaQuintaFamilia>) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };
-
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final TextView textViewVisitaFamiliaNombre;
-        final TextView textViewVisitaFecha;
-        final TextView textViewVisitaDireccion;
-        final ImageView imageViewDelete;
+        final TextView tvFamiliaNombre;
+        final TextView tvQuintaNombre;
+        final TextView tvFecha;
+        final TextView tvDireccion;
+        final ImageView imEditar;
+        final ImageView imBorrar;
 
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
-            textViewVisitaFamiliaNombre = (TextView) view.findViewById(R.id.textViewVisitaFamiliaNombre);
-            textViewVisitaFecha = (TextView) view.findViewById(R.id.textViewVisitaFecha);
-            textViewVisitaDireccion = (TextView) view.findViewById(R.id.textViewVisitaDireccion);
-            imageViewDelete = (ImageView) view.findViewById(R.id.imageBorrar);
+            tvQuintaNombre = (TextView) view.findViewById(R.id.tvItemVisitaQuintaNombre);
+            tvFamiliaNombre = (TextView) view.findViewById(R.id.tvItemVisitaFamiliaNombre);
+            tvFecha = (TextView) view.findViewById(R.id.tvItemVisitaFecha);
+            tvDireccion = (TextView) view.findViewById(R.id.tvItemVisitaDireccion);
+            imEditar = (ImageView) view.findViewById(R.id.ibItemVisitaEditar);
+            imBorrar = (ImageView) view.findViewById(R.id.ibItemVisitaBorrar);
             itemView.setOnClickListener(this);
-            imageViewDelete.setOnClickListener(this);
+            imEditar.setOnClickListener(this);
+            imBorrar.setOnClickListener(this);
 
         }
 
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.imageBorrar) {
-                mClickListener.onItemDeleteClick(this.getLayoutPosition());
-            } else {
-                mClickListener.onItemEditClick(this.getLayoutPosition());
+            switch (view.getId()) {
+                case R.id.ibItemVisitaEditar:
+                    mClickListener.onItemEditarClick(this.getLayoutPosition());
+                    break;
+                case R.id.ibItemVisitaBorrar:
+                    mClickListener.onItemBorrarClick(this.getLayoutPosition());
+                    break;
+                default:
+                    mClickListener.onItemClick(this.getLayoutPosition());
             }
         }
     }
@@ -129,8 +131,10 @@ public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder
     }
 
     public interface ItemClickListener {
-//        void onItemClick(View view, int position);
-        void onItemEditClick(int position);
-        void onItemDeleteClick(int position);
+        void onItemClick(int position);
+
+        void onItemEditarClick(int position);
+
+        void onItemBorrarClick(int position);
     }
 }

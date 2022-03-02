@@ -3,21 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_buscar"
+        android:id="@+id/itMenuVisitaFiltrar"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Buscar"
         app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView" />
     <item
-        android:id="@+id/menu_cerrar_sesion"
+        android:id="@+id/itMenuVisitasCerrarSesion"
         android:title="Cerrar sesión" />
     <item
-        android:id="@+id/menu_usuario"
+        android:id="@+id/itMenuVisitasUsuario"
         android:title="Usuario" />
     <item
-        android:id="@+id/menu_famillias"
+        android:id="@+id/itMenuVisitasFamilias"
         android:title="Familias" />
     <item
-        android:id="@+id/menu_quintas"
+        android:id="@+id/itMenuVisitasQuintas"
         android:title="Quintas" />
 </menu>

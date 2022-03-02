@@ -19,7 +19,6 @@ import unlp.labo.spg.model.VisitaDetalle;
 public class DetalleActivity extends AppCompatActivity {
 
     public static final String EXTRA_VISITA_DETALLE = "visitaDetalle";
-//    public static final String EXTRA_TIPO_DETALLE_ID = "tipoDetalleId";
     protected VisitaDetalle mVisitaDetalle;
     protected Detalle mDetalle;
     protected TipoDetalle mTipoDetalle;
@@ -29,7 +28,6 @@ public class DetalleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle);
         mVisitaDetalle = (VisitaDetalle) getIntent().getSerializableExtra(EXTRA_VISITA_DETALLE);
-//        int mTipoDetalleId = getIntent().getIntExtra(EXTRA_TIPO_DETALLE_ID, 0);
         mTipoDetalle = TipoDetalle.values()[0];
         mDetalle = mVisitaDetalle.getDetalleByTipoId(mTipoDetalle.id());
     }

@@ -5,42 +5,49 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import unlp.labo.spg.dao.FamiliaDao;
 import unlp.labo.spg.dao.QuintaDao;
-import unlp.labo.spg.dao.UserDao;
+import unlp.labo.spg.dao.UsuarioDao;
 import unlp.labo.spg.dao.VisitaDao;
 import unlp.labo.spg.model.AppDatabase;
 import unlp.labo.spg.model.Detalle;
 import unlp.labo.spg.model.Familia;
 import unlp.labo.spg.model.Quinta;
 import unlp.labo.spg.model.TipoDetalle;
-import unlp.labo.spg.model.User;
+import unlp.labo.spg.model.Usuario;
 import unlp.labo.spg.model.Visita;
 import unlp.labo.spg.model.VisitaDetalle;
 
 public class LoginActivity extends AppCompatActivity {
-    private UserDao userDao;
+    private UsuarioDao usuarioDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        userDao = AppDatabase.getInstance(this).userDao();
-        if (userDao.empty()) {
-            User user = new User("admin", "admin");
-            userDao.insert(user);
+        usuarioDao = AppDatabase.getInstance(this).usuarioDao();
+        if (usuarioDao.empty()) {
+            Usuario usuario = new Usuario("admin", "admin");
+            usuarioDao.insert(usuario);
         }
+        Button btNuevo=findViewById(R.id.btNuevo);
+        btNuevo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, UsuarioEditarActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void init_session(View view) {
-        EditText etUserName = (EditText) findViewById(R.id.editTextUser);
+        EditText etUserName = (EditText) findViewById(R.id.etUsuario);
         String userName = etUserName.getText().toString();
         if (userName.equalsIgnoreCase("reinit")) {
             reinit_db();
@@ -48,12 +55,12 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        EditText editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        EditText editTextPassword = (EditText) findViewById(R.id.etPassword);
         String password = editTextPassword.getText().toString();
-        User user = userDao.validate(userName, password);
-        if (user != null) {
-            Intent intent = new Intent(this, VisitaElegirActivity.class);
-            intent.putExtra(Intent.EXTRA_UID, user.getUid());
+        Usuario usuario = usuarioDao.validate(userName, password);
+        if (usuario != null) {
+            Intent intent = new Intent(this, VisitasActivity.class);
+            intent.putExtra(Intent.EXTRA_UID, usuario.getUid());
             startActivity(intent);
             // Do something in response to button
             finish();
@@ -65,20 +72,26 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void reinit_db() {
-        userDao.deleteAll();
+        usuarioDao.deleteAll();
         FamiliaDao familiaDao = AppDatabase.getInstance(this).familiaDao();
         familiaDao.deleteAll();
-        User user1 = new User("admin", "admin");
-        user1.setUid(userDao.insert(user1));
-        User user2 = new User("yessica", "yessica");
-        user2.setUid(userDao.insert(user2));
-        User user3 = new User("claudia", "claudia");
-        user3.setUid(userDao.insert(user3));
-        Familia familia1 = new Familia("Lopez");
+        Usuario usuario1 = new Usuario("admin", "admin");
+        usuario1.setUid(usuarioDao.insert(usuario1));
+        Usuario usuario2 = new Usuario("yessica", "yessica");
+        usuario2.setUid(usuarioDao.insert(usuario2));
+        Usuario usuario3 = new Usuario("claudia", "claudia");
+        usuario3.setUid(usuarioDao.insert(usuario3));
+        Familia familia1 = new Familia();
+        familia1.userId=usuario1.getUid();
+        familia1.nombre="Lopez";
         familia1.id = familiaDao.insert(familia1);
-        Familia familia2 = new Familia("Gonzalez");
+        Familia familia2 = new Familia();
+        familia2.userId=usuario1.getUid();
+        familia2.nombre="Gonzalez";
         familia2.id = familiaDao.insert(familia2);
-        Familia familia3 = new Familia("Rodriguez");
+        Familia familia3 = new Familia();
+        familia3.userId=usuario2.getUid();
+        familia3.nombre="Rodriguez";
         familia3.id = familiaDao.insert(familia3);
         QuintaDao quintaDao = AppDatabase.getInstance(this).quintaDao();
         Quinta quinta1 = new Quinta();
@@ -103,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
         quinta4.id = quintaDao.insert(quinta4);
         VisitaDetalle mVisitaDetalle1 = new VisitaDetalle();
         mVisitaDetalle1.visita = new Visita();
-        mVisitaDetalle1.visita.userId = user2.getUid();
         mVisitaDetalle1.visita.fecha = "06/01/2022";
         mVisitaDetalle1.visita.quintaId=quinta1.id;
         mVisitaDetalle1.detalles = new ArrayList<>();
@@ -120,7 +132,6 @@ public class LoginActivity extends AppCompatActivity {
         visitaDao.insertVisitaDetalle(mVisitaDetalle1);
         VisitaDetalle mVisitaDetalle2 = new VisitaDetalle();
         mVisitaDetalle2.visita = new Visita();
-        mVisitaDetalle2.visita.userId = user2.getUid();
         mVisitaDetalle2.visita.quintaId=quinta4.id;
         mVisitaDetalle2.visita.fecha = "14/02/2022";
         mVisitaDetalle2.detalles = new ArrayList<>();

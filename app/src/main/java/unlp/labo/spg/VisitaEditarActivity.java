@@ -15,19 +15,21 @@ import unlp.labo.spg.model.AppDatabase;
 import unlp.labo.spg.model.Quinta;
 import unlp.labo.spg.model.VisitaDetalle;
 
-public class VisitaActivity extends AppCompatActivity {
+public class VisitaEditarActivity extends AppCompatActivity {
 
     public static final String EXTRA_VISITA_DETALLE = "visitaDetalle";
 
     private VisitaDetalle mVisitaDetalle ;
+    long uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visita);
+        setContentView(R.layout.activity_visita_editar);
+        uid = getIntent().getLongExtra(Intent.EXTRA_UID,0);
         mVisitaDetalle = (VisitaDetalle) getIntent().getSerializableExtra(EXTRA_VISITA_DETALLE);
         TextView tvTitulo = (TextView) findViewById(R.id.textViewVisitaTitle);
-        EditText etQuintaNombre = (EditText) findViewById(R.id.editTextQuintaNombre);
+        EditText etQuintaNombre = (EditText) findViewById(R.id.etQuintaEditarNombre);
 
         if (mVisitaDetalle.visita.id == 0) {
             tvTitulo.setText("Nueva Visita");
@@ -48,7 +50,9 @@ public class VisitaActivity extends AppCompatActivity {
         }
         etQuintaNombre.setInputType(InputType.TYPE_NULL);
         etQuintaNombre.setOnClickListener(view -> {
-            Intent intent = new Intent(this.getApplication(), QuintaElegirActivity.class);
+            Intent intent = new Intent(this.getApplication(), QuintasActivity.class);
+            intent.putExtra(Intent.EXTRA_UID,uid);
+            intent.putExtra(QuintasActivity.EXTRA_MODO_ELEGIR,true);
             startActivityForResult(intent, 1);
         });
     }
@@ -57,9 +61,9 @@ public class VisitaActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data != null) {
-            Quinta mQuinta = (Quinta) data.getSerializableExtra(QuintaElegirActivity.EXTRA_REPLY_QUINTA);
+            Quinta mQuinta = (Quinta) data.getSerializableExtra(QuintasActivity.EXTRA_REPLY_QUINTA);
             mVisitaDetalle.visita.quintaId = mQuinta.id;
-            EditText etQuintaDesc = (EditText) findViewById(R.id.editTextQuintaNombre);
+            EditText etQuintaDesc = (EditText) findViewById(R.id.etQuintaEditarNombre);
             String mQuintaDesc = mQuinta.direccion;
             etQuintaDesc.setText(mQuintaDesc);
             findViewById(R.id.editTextSupCampo).requestFocus();

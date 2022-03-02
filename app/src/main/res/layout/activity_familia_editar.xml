@@ -8,12 +8,13 @@
     android:padding="30dp">
 
     <TextView
+        android:id="@+id/tvFamiliaEditarTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
 
         android:paddingBottom="50dp"
-        android:text="@string/nueva_familia_title"
+        android:text="@string/editar_familia"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textAlignment="center"
         android:textSize="30dp"
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:text="@string/guardar_button"
+        android:text="@string/guardar"
         app:cornerRadius="20dp" />
 
 </LinearLayout>

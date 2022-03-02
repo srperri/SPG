@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/fondo_rec2"
-        android:backgroundTintMode="add"
-
-    android:padding="30dp"
-        android:orientation="vertical"
-    tools:context=".UsuarioNuevoActivity">
-
-    <!--?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsuarioNuevoActivity"-->
+    android:background="@drawable/fondo_rec2"
+    android:backgroundTintMode="add"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:id="@+id/layout"
+    tools:context=".UsuarioEditarActivity">
+
     <TextView
+        android:id="@+id/tvTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="@string/usuario_nuevo_title"
+        android:text="@string/datos_del_usuario"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
+        android:id="@+id/tvUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Nombre de Usuario"
-        android:layout_marginTop="20dp" />
+        android:text="@string/nombre_de_usuario"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo" />
 
     <EditText
-        android:id="@+id/editTextUser"
+        android:id="@+id/etUsuario"
         style="@style/Widget.AppCompat.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,81 +42,98 @@
         android:background="@drawable/rounded_background"
         android:hint="Usuario"
         android:inputType="text"
+        android:maxLines="1"
         android:minHeight="48dp"
         android:padding="10dp"
-        android:maxLines="1"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tvUsuario" />
+
     <TextView
+        android:id="@+id/tvPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Contraseña"
-        android:layout_marginTop="20dp" />
+        android:text="@string/contrasena"
+        app:layout_constraintTop_toBottomOf="@+id/etUsuario" />
+
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/rounded_background"
         android:hint="Clave"
         android:inputType="textPassword"
-        android:padding="10dp" />
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvPassword"/>
+
     <TextView
+        android:id="@+id/tvRepetirPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Repetir Contraseña"
-        android:layout_marginTop="20dp" />
+        android:text="@string/repetir_contrasena"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword"/>
+
     <EditText
-        android:id="@+id/editTextPasswordRepeat"
+        android:id="@+id/etRepetirPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/rounded_background"
         android:hint="Clave"
         android:inputType="textPassword"
-        android:padding="10dp" />
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvRepetirPassword"
+        tools:layout_editor_absoluteX="16dp" />
+
     <LinearLayout
+        android:id="@+id/lyMiembros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp" >
+        android:layout_margin="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/etRepetirPassword">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="50"
             android:fontFamily="@font/montserrat_bold"
-            android:text="Miembros del equipo" />
+            android:gravity="center_vertical"
+            android:text="@string/miembros_del_equipo" />
 
         <Button
-            android:id="@+id/buttonAgregar"
+            android:id="@+id/btAgregar"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:drawableLeft="@drawable/ic_baseline_add_circle_24"
             android:text="Agregar"
             android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:layout_gravity="end"
-            />
+            android:textColor="@color/black" />
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/visitaRecyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
 
-        app:layout_constraintBottom_toTopOf="@+id/buttonGuardar" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMiembros"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/lyMiembros"
+        app:layout_constraintBottom_toTopOf="@id/btGuardar"
+        tools:layout_editor_absoluteX="30dp" />
+
     <Button
-        android:id="@+id/buttonGuardar"
+        android:id="@+id/btGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_marginHorizontal="10dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="@string/guardar_button"
+        android:paddingHorizontal="20dp"
+        android:text="@string/guardar"
         app:cornerRadius="20dp"
-        android:paddingHorizontal="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="10dp"/>
+        app:layout_constraintBottom_toBottomOf="@id/layout"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

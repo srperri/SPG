@@ -1,4 +1,4 @@
-package unlp.labo.spg;
+package unlp.labo.spg.model;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
