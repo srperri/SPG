@@ -60,7 +60,10 @@ public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder
                     filteredData.addAll(mDataAll);
                 } else {
                     for (VisitaQuintaFamilia v : mDataAll) {
-                        if (v.quintaFamilia.familia.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
+                        if (v.quintaFamilia.quinta.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())
+                                ||v.quintaFamilia.quinta.direccion.toLowerCase().contains(charSequence.toString().toLowerCase().trim())
+                                ||v.quintaFamilia.familia.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())
+                                ||v.visita.fecha.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
                             filteredData.add(v);
                         }
                     }

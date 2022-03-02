@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     AppDatabase db;
     long uid;
     private Menu mOptionsMenu;
+    boolean busquedaActiva =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.menu_visitas, menu);
+        menu.findItem(R.id.itMenuVisitasQuitarBusqueda).setVisible(busquedaActiva);
         MenuItem buscar = menu.findItem(R.id.itMenuVisitaFiltrar);
         SearchView sv = (SearchView) buscar.getActionView();
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -80,6 +85,14 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
+            case R.id.itMenuVisitasBuscar:
+                busquedaAvanzada();
+                return true;
+            case R.id.itMenuVisitasQuitarBusqueda:
+                busquedaActiva =false;
+                invalidateOptionsMenu();
+                onResume();
+                return true;
             case R.id.itMenuVisitasFamilias:
                 intent =new Intent(this.getApplication(), FamiliasActivity.class);
                 intent.putExtra(Intent.EXTRA_UID, uid);
@@ -116,7 +129,10 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
             searchView.setIconified(true);
             searchView.onActionViewCollapsed();
         }
-
+        if (busquedaActiva){
+           busquedaActiva =false;
+           invalidateOptionsMenu();
+        }
     }
 
 
@@ -174,5 +190,34 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
         startActivity(intent);
     }
 
+    private void busquedaAvanzada(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_buscar_visita, null);
+        VisitaAdapter.ItemClickListener itemClickListener=this;
+        Context context=this;
+        builder.setView(mView)
+                .setTitle(R.string.busqueda_avanzada)
+                .setNegativeButton(R.string.aceptar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        List<VisitaQuintaFamilia> mVisitas = db.visitaDao().getVisitaQuintaFamilia(uid,
+                                ((EditText) mView.findViewById(R.id.etBuscarVisitaQuintaNombre)).getText().toString().trim(),
+                                ((EditText) mView.findViewById(R.id.etBuscarVisitaFamiliaNombre)).getText().toString().trim(),
+                                ((EditText) mView.findViewById(R.id.etBuscarVisitaFecha)).getText().toString().trim());
+                        if (mVisitas.size()>0) {
+                            mAdapter = new VisitaAdapter(context, mVisitas);
+                            mAdapter.setClickListener(itemClickListener);
+                            mRecyclerView.setAdapter(mAdapter);
+                            busquedaActiva =true;
+                            invalidateOptionsMenu();
+                            Toast.makeText(getApplicationContext(), "Se encontraron "+mVisitas.size()+" coincidencias.", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "No se encontraron coincidencias.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        AlertDialog mDialog = builder.create();
+        mDialog.show();
+    }
 }
 

@@ -24,6 +24,15 @@ public interface VisitaDao {
     List<VisitaQuintaFamilia> getVisitaQuintaFamilia(long userId);
 
     @Transaction
+    @Query("SELECT visita.* FROM visita "+
+            "join quinta on visita.quintaId=quinta.id join familia on quinta.familiaId=familia.id "+
+            "where familia.userId=(:userId) "+
+            "and upper(quinta.nombre) like  '%' || upper(:quintaNombre)|| '%' "+
+            "and familia.nombre like  '%' || upper(:familiaNombre)|| '%' "+
+            "and visita.fecha like '%' || upper(:fecha)|| '%'")
+    List<VisitaQuintaFamilia> getVisitaQuintaFamilia(long userId, String quintaNombre, String familiaNombre, String fecha);
+
+    @Transaction
     @Query("SELECT * FROM Visita where quintaId=(:quintaId)")
     List<VisitaQuintaFamilia> getVisitaQuintaFamiliaByQuintaId(long quintaId);
 

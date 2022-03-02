@@ -60,7 +60,9 @@ public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder
                     filteredData.addAll(mDataAll);
                 } else {
                     for (QuintaFamilia quintaFamilia : mDataAll) {
-                        if (quintaFamilia.quinta.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
+                        if (quintaFamilia.quinta.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())
+                                ||quintaFamilia.quinta.direccion.toLowerCase().contains(charSequence.toString().toLowerCase().trim())
+                                ||quintaFamilia.familia.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
                             filteredData.add(quintaFamilia);
                         }
                     }

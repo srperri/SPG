@@ -5,19 +5,26 @@
     <item
         android:id="@+id/itMenuVisitaFiltrar"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="Buscar"
+        android:title="Filtrar"
         app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView" />
     <item
-        android:id="@+id/itMenuVisitasCerrarSesion"
-        android:title="Cerrar sesión" />
+        android:id="@+id/itMenuVisitasBuscar"
+        android:title="Búsqueda avanzada"/>
     <item
-        android:id="@+id/itMenuVisitasUsuario"
-        android:title="Usuario" />
+        android:id="@+id/itMenuVisitasQuitarBusqueda"
+        android:title="QuitarBúsqueda"
+        android:visible="false"/>
     <item
         android:id="@+id/itMenuVisitasFamilias"
         android:title="Familias" />
     <item
         android:id="@+id/itMenuVisitasQuintas"
         android:title="Quintas" />
+    <item
+        android:id="@+id/itMenuVisitasUsuario"
+        android:title="Usuario" />
+    <item
+        android:id="@+id/itMenuVisitasCerrarSesion"
+        android:title="Cerrar sesión" />
 </menu>
