@@ -8,13 +8,14 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity(foreignKeys = {@ForeignKey(onDelete = CASCADE, entity = Quinta.class, parentColumns = "id", childColumns = "quintaId")},
         indices = {@Index("quintaId")})
 public class Visita implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public long id;
-    public String fecha;
+    public Date fecha;
     public long quintaId;
     public float supCampo;
     public float supInver;

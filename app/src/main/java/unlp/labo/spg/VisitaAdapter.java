@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder
         VisitaQuintaFamilia mVisita = mData.get(position);
         viewHolder.tvFamiliaNombre.setText(mVisita.quintaFamilia.familia.nombre);
         viewHolder.tvQuintaNombre.setText(mVisita.quintaFamilia.quinta.nombre);
-        viewHolder.tvFecha.setText(mVisita.visita.fecha);
+        viewHolder.tvFecha.setText( new SimpleDateFormat("dd/MM/yyyy").format(mVisita.visita.fecha));
         viewHolder.tvDireccion.setText(mVisita.quintaFamilia.quinta.direccion);
     }
 
@@ -63,7 +64,7 @@ public class VisitaAdapter extends RecyclerView.Adapter<VisitaAdapter.ViewHolder
                         if (v.quintaFamilia.quinta.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())
                                 ||v.quintaFamilia.quinta.direccion.toLowerCase().contains(charSequence.toString().toLowerCase().trim())
                                 ||v.quintaFamilia.familia.nombre.toLowerCase().contains(charSequence.toString().toLowerCase().trim())
-                                ||v.visita.fecha.toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
+                                || (new SimpleDateFormat("dd/MM/yyyy").format(v.visita.fecha)).toLowerCase().contains(charSequence.toString().toLowerCase().trim())) {
                             filteredData.add(v);
                         }
                     }

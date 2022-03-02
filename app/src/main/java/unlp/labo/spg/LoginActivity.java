@@ -9,7 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import unlp.labo.spg.dao.FamiliaDao;
 import unlp.labo.spg.dao.QuintaDao;
@@ -116,7 +119,11 @@ public class LoginActivity extends AppCompatActivity {
         quinta4.id = quintaDao.insert(quinta4);
         VisitaDetalle mVisitaDetalle1 = new VisitaDetalle();
         mVisitaDetalle1.visita = new Visita();
-        mVisitaDetalle1.visita.fecha = "06/01/2022";
+        try {
+            mVisitaDetalle1.visita.fecha = new SimpleDateFormat("dd/MM/yyyy").parse("06/01/2022");
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
         mVisitaDetalle1.visita.quintaId=quinta1.id;
         mVisitaDetalle1.detalles = new ArrayList<>();
         for (TipoDetalle t : TipoDetalle.values()) {
@@ -133,7 +140,11 @@ public class LoginActivity extends AppCompatActivity {
         VisitaDetalle mVisitaDetalle2 = new VisitaDetalle();
         mVisitaDetalle2.visita = new Visita();
         mVisitaDetalle2.visita.quintaId=quinta4.id;
-        mVisitaDetalle2.visita.fecha = "14/02/2022";
+        try {
+            mVisitaDetalle2.visita.fecha = new SimpleDateFormat("dd/MM/yyyy").parse( "14/02/2022");
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
         mVisitaDetalle2.detalles = new ArrayList<>();
         for (TipoDetalle t : TipoDetalle.values()) {
             Detalle mDetalle = new Detalle();

@@ -12,6 +12,7 @@ import unlp.labo.spg.model.Detalle;
 import unlp.labo.spg.model.Visita;
 import unlp.labo.spg.model.VisitaDetalle;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -20,7 +21,9 @@ public interface VisitaDao {
     Visita getById(long id);
 
     @Transaction
-    @Query("SELECT visita.* FROM visita join quinta on visita.quintaId=quinta.id join familia on quinta.familiaId=familia.id where familia.userId=(:userId)")
+    @Query("SELECT visita.* FROM visita "+
+            "join quinta on visita.quintaId=quinta.id join familia on quinta.familiaId=familia.id "+
+            "where familia.userId=(:userId) order by visita.fecha desc")
     List<VisitaQuintaFamilia> getVisitaQuintaFamilia(long userId);
 
     @Transaction
@@ -28,12 +31,13 @@ public interface VisitaDao {
             "join quinta on visita.quintaId=quinta.id join familia on quinta.familiaId=familia.id "+
             "where familia.userId=(:userId) "+
             "and upper(quinta.nombre) like  '%' || upper(:quintaNombre)|| '%' "+
-            "and familia.nombre like  '%' || upper(:familiaNombre)|| '%' "+
-            "and visita.fecha like '%' || upper(:fecha)|| '%'")
-    List<VisitaQuintaFamilia> getVisitaQuintaFamilia(long userId, String quintaNombre, String familiaNombre, String fecha);
+            "and upper(familia.nombre) like  '%' || upper(:familiaNombre)|| '%' "+
+            "and (:fecha is null or visita.fecha=(:fecha)) "+
+            "order by visita.fecha desc")
+    List<VisitaQuintaFamilia> getVisitaQuintaFamilia(long userId, String quintaNombre, String familiaNombre, Date fecha);
 
     @Transaction
-    @Query("SELECT * FROM Visita where quintaId=(:quintaId)")
+    @Query("SELECT * FROM Visita where quintaId=(:quintaId)  order by fecha desc")
     List<VisitaQuintaFamilia> getVisitaQuintaFamiliaByQuintaId(long quintaId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

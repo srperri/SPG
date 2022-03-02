@@ -26,6 +26,7 @@ import unlp.labo.spg.model.VisitaQuintaFamilia;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -177,7 +178,8 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     public void nueva_visita() {
         VisitaDetalle mVisitaDetalle = new VisitaDetalle();
         mVisitaDetalle.visita = new Visita();
-        mVisitaDetalle.visita.fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        mVisitaDetalle.visita.fecha = new Date();
+        //mVisitaDetalle.visita.fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         mVisitaDetalle.detalles = new ArrayList<>();
         for (TipoDetalle t : TipoDetalle.values()) {
             Detalle mDetalle = new Detalle();
@@ -200,10 +202,17 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
                 .setNegativeButton(R.string.aceptar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        Date fecha=null;
+                        try {
+                            String s=((EditText) mView.findViewById(R.id.etBuscarVisitaFecha)).getText().toString().trim();
+                            fecha=new SimpleDateFormat("dd/MM/yyyy").parse( s);
+                        }catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         List<VisitaQuintaFamilia> mVisitas = db.visitaDao().getVisitaQuintaFamilia(uid,
                                 ((EditText) mView.findViewById(R.id.etBuscarVisitaQuintaNombre)).getText().toString().trim(),
                                 ((EditText) mView.findViewById(R.id.etBuscarVisitaFamiliaNombre)).getText().toString().trim(),
-                                ((EditText) mView.findViewById(R.id.etBuscarVisitaFecha)).getText().toString().trim());
+                                fecha);
                         if (mVisitas.size()>0) {
                             mAdapter = new VisitaAdapter(context, mVisitas);
                             mAdapter.setClickListener(itemClickListener);

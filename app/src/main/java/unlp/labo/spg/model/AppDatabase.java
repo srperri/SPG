@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+
 import unlp.labo.spg.dao.FamiliaDao;
 import unlp.labo.spg.dao.QuintaDao;
 import unlp.labo.spg.dao.UsuarioDao;
@@ -18,7 +20,8 @@ import unlp.labo.spg.dao.VisitaDao;
                 Visita.class,
                 Detalle.class,
                 Miembro.class,
-        }, version = 25, exportSchema = false)
+        }, version = 26, exportSchema = false)
+@TypeConverters({Converters.class})
 
 public abstract class AppDatabase extends RoomDatabase {
 
