@@ -32,11 +32,11 @@ public class VisitaEditarActivity extends AppCompatActivity {
         EditText etQuintaNombre = (EditText) findViewById(R.id.etQuintaEditarNombre);
 
         if (mVisitaDetalle.visita.id == 0) {
-            tvTitulo.setText("Nueva Visita");
+            tvTitulo.setText(R.string.nueva_visita);
         } else {
-            tvTitulo.setText("Editar Visita");
+            tvTitulo.setText(R.string.editar_visita);
             Quinta mQuinta=AppDatabase.getInstance(this).quintaDao().getById(mVisitaDetalle.visita.quintaId);
-            etQuintaNombre.setText(mQuinta.nombre.toString());
+            etQuintaNombre.setText(mQuinta.nombre);
         }
         EditText etSupCampo = (EditText) findViewById(R.id.editTextSupCampo);
         if(mVisitaDetalle.visita.supCampo>0){
@@ -63,9 +63,7 @@ public class VisitaEditarActivity extends AppCompatActivity {
         if (requestCode == 1 && data != null) {
             Quinta mQuinta = (Quinta) data.getSerializableExtra(QuintasActivity.EXTRA_REPLY_QUINTA);
             mVisitaDetalle.visita.quintaId = mQuinta.id;
-            EditText etQuintaDesc = (EditText) findViewById(R.id.etQuintaEditarNombre);
-            String mQuintaDesc = mQuinta.direccion;
-            etQuintaDesc.setText(mQuintaDesc);
+            ((EditText) findViewById(R.id.etQuintaEditarNombre)).setText(mQuinta.nombre);
             findViewById(R.id.editTextSupCampo).requestFocus();
         }
     }

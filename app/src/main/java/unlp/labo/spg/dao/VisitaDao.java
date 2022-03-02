@@ -5,7 +5,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
-import androidx.room.Update;
 
 import unlp.labo.spg.model.VisitaQuintaFamilia;
 import unlp.labo.spg.model.Detalle;

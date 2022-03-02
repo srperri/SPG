@@ -2,18 +2,15 @@ package unlp.labo.spg.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
 
-import unlp.labo.spg.model.Detalle;
 import unlp.labo.spg.model.Miembro;
 import unlp.labo.spg.model.Usuario;
 import unlp.labo.spg.model.UsuarioMiembros;
-import unlp.labo.spg.model.VisitaDetalle;
 
 @Dao
 public interface UsuarioDao {

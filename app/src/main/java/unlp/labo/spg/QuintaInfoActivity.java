@@ -5,14 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Adapter;
-import android.widget.EditText;
-import android.widget.SearchView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,16 +77,12 @@ public class QuintaInfoActivity extends AppCompatActivity implements VisitaAdapt
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Confirma que desea eliminar la visita?")
                 .setTitle("Alerta")
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        db.visitaDao().deleteById(mAdapter.getItem(position).visita.id);
-                        Toast.makeText(getApplicationContext(), "Se borró la visita a " + mAdapter.getItem(position).quintaFamilia.familia.nombre + ".", Toast.LENGTH_SHORT).show();
-                        onResume();
-                    }
+                .setPositiveButton("Sí", (dialog, id) -> {
+                    db.visitaDao().deleteById(mAdapter.getItem(position).visita.id);
+                    Toast.makeText(getApplicationContext(), "Se borró la visita a " + mAdapter.getItem(position).quintaFamilia.familia.nombre + ".", Toast.LENGTH_SHORT).show();
+                    onResume();
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                .setNegativeButton("Cancelar", (dialog, id) -> {
                 });
         AlertDialog mAlert = builder.create();
         mAlert.show();

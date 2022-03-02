@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -71,16 +70,12 @@ public class FamiliaInfoActivity extends AppCompatActivity implements QuintaAdap
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Confirma que desea eliminar la quinta?")
                 .setTitle("Alerta")
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        db.quintaDao().delete(mAdapter.getItem(position).quinta);
-                        Toast.makeText(getApplicationContext(), "Se borró la quinta " + mAdapter.getItem(position).quinta.nombre + ".", Toast.LENGTH_SHORT).show();
-                        onResume();
-                    }
+                .setPositiveButton("Sí", (dialog, id) -> {
+                    db.quintaDao().delete(mAdapter.getItem(position).quinta);
+                    Toast.makeText(getApplicationContext(), "Se borró la quinta " + mAdapter.getItem(position).quinta.nombre + ".", Toast.LENGTH_SHORT).show();
+                    onResume();
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                .setNegativeButton("Cancelar", (dialog, id) -> {
                 });
         AlertDialog mAlert = builder.create();
         mAlert.show();

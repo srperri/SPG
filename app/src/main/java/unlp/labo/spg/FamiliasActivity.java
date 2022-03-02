@@ -88,8 +88,8 @@ public class FamiliasActivity extends AppCompatActivity implements FamiliaAdapte
             setResult(RESULT_OK, replyIntent);
             finish();
         }else {
-            Intent intent = new Intent(this, FamiliaEditarActivity.class);
-            intent.putExtra(FamiliaEditarActivity.EXTRA_FAMILIA, mAdapter.getItem(position));
+            Intent intent = new Intent(this, FamiliaInfoActivity.class);
+            intent.putExtra(FamiliaInfoActivity.EXTRA_FAMILIA, mAdapter.getItem(position));
             startActivity(intent);
         }
     }
@@ -97,8 +97,8 @@ public class FamiliasActivity extends AppCompatActivity implements FamiliaAdapte
 
     @Override
     public void onItemEditarClick(int position) {
-        Intent intent = new Intent(this, FamiliaInfoActivity.class);
-        intent.putExtra(FamiliaInfoActivity.EXTRA_FAMILIA, mAdapter.getItem(position));
+        Intent intent = new Intent(this, FamiliaEditarActivity.class);
+        intent.putExtra(FamiliaEditarActivity.EXTRA_FAMILIA, mAdapter.getItem(position));
         startActivity(intent);
     }
 

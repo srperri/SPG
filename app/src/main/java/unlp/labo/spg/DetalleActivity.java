@@ -2,7 +2,6 @@ package unlp.labo.spg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
@@ -54,13 +53,10 @@ public class DetalleActivity extends AppCompatActivity {
         etSugerencia.setImeOptions(EditorInfo.IME_ACTION_GO);
         etSugerencia.setRawInputType(InputType.TYPE_CLASS_TEXT);
 
-        Button button = (Button) findViewById(R.id.detalle_continuar);
-        button.setOnClickListener(view -> {
-            onClickButton();
-        });
-        Button sig = (Button) findViewById(R.id.detalle_continuar);
+        Button btContinuar = (Button) findViewById(R.id.detalle_continuar);
+        btContinuar.setOnClickListener(view -> onClickButton());
         if (mTipoDetalle.id() + 1 == TipoDetalle.values().length) {
-            sig.setText("Finalizar");
+            btContinuar.setText(R.string.finalizar);
         }
     }
 
@@ -74,10 +70,6 @@ public class DetalleActivity extends AppCompatActivity {
         EditText etSugerencia = findViewById(R.id.detalle_sugerencia);
         mDetalle.sugerencia = etSugerencia.getText().toString();
         if (mTipoDetalle.id() + 1 < TipoDetalle.values().length) {
-//            Intent intent = new Intent(this.getApplication(), DetalleActivity.class);
-//            intent.putExtra(EXTRA_VISITA_DETALLE, mVisitaDetalle);
-//            intent.putExtra(EXTRA_TIPO_DETALLE_ID, mTipoDetalle.id() + 1);
-//            startActivity(intent);
             mTipoDetalle = TipoDetalle.values()[mTipoDetalle.id()+1];
             mDetalle = mVisitaDetalle.getDetalleByTipoId(mTipoDetalle.id());
             this.onStart();

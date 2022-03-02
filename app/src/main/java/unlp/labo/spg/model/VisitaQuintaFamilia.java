@@ -3,10 +3,6 @@ package unlp.labo.spg.model;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import unlp.labo.spg.model.Quinta;
-import unlp.labo.spg.model.QuintaFamilia;
-import unlp.labo.spg.model.Visita;
-
 public class VisitaQuintaFamilia {
 
     @Embedded

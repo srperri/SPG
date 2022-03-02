@@ -41,4 +41,6 @@
     <string name="nombre_de_la_familia">Nombre de la Familia</string>
     <string name="cumple">Cumple</string>
     <string name="aceptar">Aceptar</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="editar_visita">Editar Visita</string>
 </resources>

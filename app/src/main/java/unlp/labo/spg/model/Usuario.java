@@ -25,6 +25,7 @@ public class Usuario {
 
     public void setUid(long uid) { this.uid = uid; }
 
+    @NonNull
     public String getNombre() {
         return nombre;
     }
@@ -33,6 +34,7 @@ public class Usuario {
         this.nombre = nombre;
     }
 
+    @NonNull
     public String getPassword() {
         return password;
     }

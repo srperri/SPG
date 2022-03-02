@@ -160,16 +160,12 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Confirma que desea eliminar la visita?")
                 .setTitle("Alerta")
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        db.visitaDao().deleteById(mAdapter.getItem(position).visita.id);
-                        Toast.makeText(getApplicationContext(), "Se borró la visita a " + mAdapter.getItem(position).quintaFamilia.familia.nombre + ".", Toast.LENGTH_SHORT).show();
-                        onResume();
-                    }
+                .setPositiveButton("Sí", (dialog, id) -> {
+                    db.visitaDao().deleteById(mAdapter.getItem(position).visita.id);
+                    Toast.makeText(getApplicationContext(), "Se borró la visita a " + mAdapter.getItem(position).quintaFamilia.familia.nombre + ".", Toast.LENGTH_SHORT).show();
+                    onResume();
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                .setNegativeButton("Cancelar", (dialog, id) -> {
                 });
         AlertDialog mAlert = builder.create();
         mAlert.show();
@@ -178,8 +174,12 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     public void nueva_visita() {
         VisitaDetalle mVisitaDetalle = new VisitaDetalle();
         mVisitaDetalle.visita = new Visita();
-        mVisitaDetalle.visita.fecha = new Date();
-        //mVisitaDetalle.visita.fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            mVisitaDetalle.visita.fecha =sdf.parse(sdf.format(new Date()));
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
         mVisitaDetalle.detalles = new ArrayList<>();
         for (TipoDetalle t : TipoDetalle.values()) {
             Detalle mDetalle = new Detalle();
@@ -199,30 +199,27 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
         Context context=this;
         builder.setView(mView)
                 .setTitle(R.string.busqueda_avanzada)
-                .setNegativeButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        Date fecha=null;
-                        try {
-                            String s=((EditText) mView.findViewById(R.id.etBuscarVisitaFecha)).getText().toString().trim();
-                            fecha=new SimpleDateFormat("dd/MM/yyyy").parse( s);
-                        }catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        List<VisitaQuintaFamilia> mVisitas = db.visitaDao().getVisitaQuintaFamilia(uid,
-                                ((EditText) mView.findViewById(R.id.etBuscarVisitaQuintaNombre)).getText().toString().trim(),
-                                ((EditText) mView.findViewById(R.id.etBuscarVisitaFamiliaNombre)).getText().toString().trim(),
-                                fecha);
-                        if (mVisitas.size()>0) {
-                            mAdapter = new VisitaAdapter(context, mVisitas);
-                            mAdapter.setClickListener(itemClickListener);
-                            mRecyclerView.setAdapter(mAdapter);
-                            busquedaActiva =true;
-                            invalidateOptionsMenu();
-                            Toast.makeText(getApplicationContext(), "Se encontraron "+mVisitas.size()+" coincidencias.", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "No se encontraron coincidencias.", Toast.LENGTH_SHORT).show();
-                        }
+                .setNegativeButton(R.string.aceptar, (dialog, id) -> {
+                    Date fecha=null;
+                    try {
+                        String s=((EditText) mView.findViewById(R.id.etBuscarVisitaFecha)).getText().toString().trim();
+                        fecha=new SimpleDateFormat("dd/MM/yyyy").parse( s);
+                    }catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    List<VisitaQuintaFamilia> mVisitas = db.visitaDao().getVisitaQuintaFamilia(uid,
+                            ((EditText) mView.findViewById(R.id.etBuscarVisitaQuintaNombre)).getText().toString().trim(),
+                            ((EditText) mView.findViewById(R.id.etBuscarVisitaFamiliaNombre)).getText().toString().trim(),
+                            fecha);
+                    if (mVisitas.size()>0) {
+                        mAdapter = new VisitaAdapter(context, mVisitas);
+                        mAdapter.setClickListener(itemClickListener);
+                        mRecyclerView.setAdapter(mAdapter);
+                        busquedaActiva =true;
+                        invalidateOptionsMenu();
+                        Toast.makeText(getApplicationContext(), "Se encontraron "+mVisitas.size()+" coincidencias.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "No se encontraron coincidencias.", Toast.LENGTH_SHORT).show();
                     }
                 });
         AlertDialog mDialog = builder.create();
