@@ -38,7 +38,11 @@ public class FamiliaEditarActivity extends AppCompatActivity implements View.OnC
             Toast.makeText(this, "Debe indicar un nombre", Toast.LENGTH_SHORT).show();
         }else {
             mFamilia.nombre=mEditText.getText().toString();
-            mFamilia.id = AppDatabase.getInstance(this).familiaDao().insert(mFamilia);
+            if (mFamilia.id==0){
+                mFamilia.id=AppDatabase.getInstance(this).familiaDao().insert(mFamilia);
+            } else{
+                AppDatabase.getInstance(this).familiaDao().update(mFamilia);
+            }
             Intent replyIntent = new Intent();
             replyIntent.putExtra(EXTRA_REPLY_FAMILIA, mFamilia);
             setResult(RESULT_OK, replyIntent);

@@ -55,7 +55,11 @@ public class QuintaEditarActivity extends AppCompatActivity {
     public void guardar(View view) {
         mQuinta.nombre = ((EditText) findViewById(R.id.etQuintaEditarNombre)).getText().toString();
         mQuinta.direccion = ((EditText) findViewById(R.id.etQuintaEditarDireccion)).getText().toString();
-        mQuinta.id=AppDatabase.getInstance(this).quintaDao().insert(mQuinta);
+        if (mQuinta.id==0){
+            mQuinta.id=AppDatabase.getInstance(this).quintaDao().insert(mQuinta);
+        }else{
+            AppDatabase.getInstance(this).quintaDao().update(mQuinta);
+        }
         Intent replyIntent = new Intent();
         replyIntent.putExtra(EXTRA_REPLY_QUINTA, mQuinta);
         setResult(RESULT_OK, replyIntent);
@@ -65,13 +69,16 @@ public class QuintaEditarActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Familia mFamilia;
         if (requestCode == 1 && data != null) {
-            Familia mFamilia= (Familia) data.getSerializableExtra(FamiliasActivity.EXTRA_REPLY_FAMILIA);
+            mFamilia= (Familia) data.getSerializableExtra(FamiliasActivity.EXTRA_REPLY_FAMILIA);
             mQuinta.familiaId = mFamilia.id;
-            EditText etFamiliaNombre = (EditText) findViewById(R.id.etQuintaEditarFamiliaNombre);
-            etFamiliaNombre.setText(mFamilia.nombre);
-            findViewById(R.id.etQuintaEditarDireccion).requestFocus();
+        }else{
+            mFamilia=AppDatabase.getInstance(this).familiaDao().getById(mQuinta.familiaId);
         }
+        EditText etFamiliaNombre = (EditText) findViewById(R.id.etQuintaEditarFamiliaNombre);
+        etFamiliaNombre.setText(mFamilia.nombre);
+        findViewById(R.id.etQuintaEditarDireccion).requestFocus();
     }
 
 

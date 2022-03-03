@@ -60,12 +60,16 @@ public class VisitaEditarActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Quinta mQuinta;
         if (requestCode == 1 && data != null) {
-            Quinta mQuinta = (Quinta) data.getSerializableExtra(QuintasActivity.EXTRA_REPLY_QUINTA);
+            mQuinta = (Quinta) data.getSerializableExtra(QuintasActivity.EXTRA_REPLY_QUINTA);
             mVisitaDetalle.visita.quintaId = mQuinta.id;
-            ((EditText) findViewById(R.id.etQuintaEditarNombre)).setText(mQuinta.nombre);
-            findViewById(R.id.editTextSupCampo).requestFocus();
+        }else{
+            mQuinta=AppDatabase.getInstance(this).quintaDao().getById(mVisitaDetalle.visita.quintaId);
         }
+        EditText etQuintaNombre = (EditText) findViewById(R.id.etQuintaEditarNombre);
+        etQuintaNombre.setText(mQuinta.nombre);
+        findViewById(R.id.editTextSupCampo).requestFocus();
     }
 
     public void continuar(View view) {

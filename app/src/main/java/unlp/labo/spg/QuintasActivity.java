@@ -96,6 +96,7 @@ public class QuintasActivity extends AppCompatActivity implements QuintaAdapter.
         } else {
             Intent intent = new Intent(this, QuintaInfoActivity.class);
             intent.putExtra(QuintaEditarActivity.EXTRA_QUINTA, mAdapter.getItem(position).quinta);
+            intent.putExtra(Intent.EXTRA_UID,uid);
             startActivity(intent);
         }
     }
@@ -104,6 +105,7 @@ public class QuintasActivity extends AppCompatActivity implements QuintaAdapter.
     public void onItemEditarClick(int position) {
         Intent intent = new Intent(this, QuintaEditarActivity.class);
         intent.putExtra(QuintaEditarActivity.EXTRA_QUINTA, mAdapter.getItem(position).quinta);
+        intent.putExtra(Intent.EXTRA_UID,uid);
         startActivity(intent);
     }
 

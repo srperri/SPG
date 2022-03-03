@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import unlp.labo.spg.model.QuintaFamilia;
 import unlp.labo.spg.model.Quinta;
@@ -20,6 +21,9 @@ public interface QuintaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Quinta quinta);
+
+    @Update
+    void update(Quinta quinta);
 
     @Delete
     void delete(Quinta quinta);

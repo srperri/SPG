@@ -21,6 +21,9 @@ public interface FamiliaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Familia familia);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void update(Familia familia);
+
     @Delete
     void delete(Familia familia);
 
