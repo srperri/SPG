@@ -4,7 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/sebastian.perri/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_detalle.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/sebastian.perri/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_login.xml" value="0.28940217391304346" />
+        <entry key="..\:/Users/sebastian.perri/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_quinta_nueva.xml" value="0.28940217391304346" />
+        <entry key="..\:/Users/sebastian.perri/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_usuario_nuevo.xml" value="0.28940217391304346" />
+        <entry key="..\:/Users/sebastian.perri/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_visita_elegir.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/sebastian.perri/AndroidStudioProjects/grupo_19/app/src/main/res/menu/menu_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/sebastian.perri/AndroidStudioProjects/grupo_19/app/src/main/res/mipmap-anydpi-v26/spg.xml" value="0.228125" />
+        <entry key="..\:/Users/sebastian.perri/AndroidStudioProjects/grupo_19/app/src/main/res/mipmap-anydpi-v26/spg_round.xml" value="0.228125" />
         <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_detalle.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_familia_elegir.xml" value="0.11570247933884298" />
         <entry key="..\:/Users/sperr/AndroidStudioProjects/SPG/app/src/main/res/layout/activity_familia_nueva.xml" value="0.25" />
@@ -38,41 +44,11 @@
         <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/familia_item.xml" value="0.5" />
         <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/quinta_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/sperr/AndroidStudioProjects/SeguimientoSPG/app/src/main/res/layout/visita_item.xml" value="0.25" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/drawable/ic_baseline_grass_24.xml" value="0.240625" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/drawable/ic_round_person_24.xml" value="0.240625" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/drawable/ic_sharp_delete_forever_24.xml" value="0.25625" />
         <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_detalle.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_familia.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_familia_editar.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_familia_elegir.xml" value="0.1" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_familia_info.xml" value="0.33" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_familia_nueva.xml" value="0.24010416666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_familias.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_login.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_quinta.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_quinta_editar.xml" value="0.10104166666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_quinta_info.xml" value="0.15" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_quinta_nueva.xml" value="0.25" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_quintas.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_usuario_editar.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_usuario_nuevo.xml" value="0.25" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_visita.xml" value="0.11770833333333333" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_visita_editar.xml" value="0.24010416666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_visita_elegir.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_visita_info.xml" value="0.12135416666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/activity_visitas.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/dialog_buscar_visita.xml" value="0.11197916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/dialog_miembro_nuevo.xml" value="0.24010416666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/familia_item.xml" value="0.33" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/info_detalle.xml" value="0.5" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/miembro_item.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/quinta_item.xml" value="0.25" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/visita_item.xml" value="0.33" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/menu/menu_familia.xml" value="0.33" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/menu/menu_familias.xml" value="0.13489583333333333" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/menu/menu_main.xml" value="0.1" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/menu/menu_quintas.xml" value="0.24010416666666667" />
-        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/menu/menu_visitas.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/familia_item.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/quinta_item.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/sperr/AndroidStudioProjects/grupo_19/app/src/main/res/layout/visita_item.xml" value="0.22447916666666667" />
       </map>
     </option>
   </component>
