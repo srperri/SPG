@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -38,18 +40,15 @@ public class UsuarioEditarActivity extends AppCompatActivity implements MiembroA
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_usuario_editar);
-        uid = getIntent().getLongExtra(Intent.EXTRA_UID, 0);
+        SharedPreferences sharedPref = getSharedPreferences("user", Context.MODE_PRIVATE);
+        uid = sharedPref.getLong("uid", 0);
         db = AppDatabase.getInstance(this.getApplication());
         mRecyclerView = findViewById(R.id.rvMiembros);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         Button btAgregar = findViewById(R.id.btAgregar);
-        btAgregar.setOnClickListener(view -> {
-            agregarMiembro();
-        });
+        btAgregar.setOnClickListener(view -> agregarMiembro());
         Button btGuardar = findViewById(R.id.btGuardar);
-        btGuardar.setOnClickListener(view -> {
-            guardarUsuario();
-        });
+        btGuardar.setOnClickListener(view -> guardarUsuario());
         if (uid != 0) {
             mUsuarioMiembros = db.usuarioDao().getUsuarioMiembrosByUid(uid);
         } else {
@@ -109,25 +108,20 @@ public class UsuarioEditarActivity extends AppCompatActivity implements MiembroA
         for (Rol r : Rol.values()) {
             RadioButton rb = new RadioButton(this);
             rb.setText(r.descripcion());
-            rb.setOnClickListener(view -> {
-                mMiembro.rol = r;
-            });
+            rb.setOnClickListener(view -> mMiembro.rol = r);
             rgRoles.addView(rb);
             if (r == mMiembro.rol) rb.setChecked(true);
         }
 
         builder.setView(mView)
                 .setTitle("Nuevo Miembro")
-                .setNegativeButton("Guardar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        mMiembro.nombre = ((EditText) mView.findViewById(R.id.editTextMiembroNombre)).getText().toString();
-                        mMiembro.apellido = ((EditText) mView.findViewById(R.id.editTextMiembroApellido)).getText().toString();
-                        mUsuarioMiembros.miembros.add(mMiembro);
-                        Toast.makeText(getApplicationContext(), "Se agregó el miembro " + mMiembro.apellido + ", " + mMiembro.nombre + ".", Toast.LENGTH_SHORT).show();
-                        onResume();
+                .setNegativeButton("Guardar", (dialog, id) -> {
+                    mMiembro.nombre = ((EditText) mView.findViewById(R.id.editTextMiembroNombre)).getText().toString();
+                    mMiembro.apellido = ((EditText) mView.findViewById(R.id.editTextMiembroApellido)).getText().toString();
+                    mUsuarioMiembros.miembros.add(mMiembro);
+                    Toast.makeText(getApplicationContext(), "Se agregó el miembro " + mMiembro.apellido + ", " + mMiembro.nombre + ".", Toast.LENGTH_SHORT).show();
+                    onResume();
 
-                    }
                 });
         AlertDialog mDialog = builder.create();
         mDialog.show();

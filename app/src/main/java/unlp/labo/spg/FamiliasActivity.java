@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +36,8 @@ public class FamiliasActivity extends AppCompatActivity implements FamiliaAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_familias);
-        uid = getIntent().getLongExtra(Intent.EXTRA_UID, 0);
+        SharedPreferences sharedPref = getSharedPreferences("user", Context.MODE_PRIVATE);
+        uid = sharedPref.getLong("uid", 0);
         mModoElegir = getIntent().getBooleanExtra(EXTRA_MODO_ELEGIR,false);
         TextView tvTitulo=(TextView) findViewById(R.id.tvFamiliasTitulo);
         tvTitulo.setText(mModoElegir?R.string.seleccione_una_familia :R.string.familias);
@@ -55,6 +58,7 @@ public class FamiliasActivity extends AppCompatActivity implements FamiliaAdapte
         super.onResume();
         List<Familia> mFamilias = AppDatabase.getInstance(this).familiaDao().getAll(uid);
         mAdapter =new FamiliaAdapter(this, mFamilias);
+        mAdapter.modoElegir=mModoElegir;
         mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -107,16 +111,12 @@ public class FamiliasActivity extends AppCompatActivity implements FamiliaAdapte
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Confirma que desea eliminar la familia?")
                 .setTitle("Alerta")
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        AppDatabase.getInstance(getApplicationContext()).familiaDao().delete(mAdapter.getItem(position));
-                        Toast.makeText(getApplicationContext(), "Se borrar la familia " + mAdapter.getItem(position).nombre+".", Toast.LENGTH_SHORT).show();
-                        onResume();
-                    }
+                .setPositiveButton("Sí", (dialog, id) -> {
+                    AppDatabase.getInstance(getApplicationContext()).familiaDao().delete(mAdapter.getItem(position));
+                    Toast.makeText(getApplicationContext(), "Se borrar la familia " + mAdapter.getItem(position).nombre+".", Toast.LENGTH_SHORT).show();
+                    onResume();
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                .setNegativeButton("Cancelar", (dialog, id) -> {
                 });
         AlertDialog mAlert= builder.create();
         mAlert.show();

@@ -19,7 +19,6 @@ public class QuintaEditarActivity extends AppCompatActivity {
     public static final String EXTRA_QUINTA = "quinta";
 
     private Quinta mQuinta;
-    long uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,6 @@ public class QuintaEditarActivity extends AppCompatActivity {
         EditText etFamiliaNombre =  findViewById(R.id.etQuintaEditarFamiliaNombre);
         EditText etDireccion =  findViewById(R.id.etQuintaEditarDireccion);
         mQuinta = (Quinta) getIntent().getSerializableExtra(EXTRA_QUINTA);
-        uid= getIntent().getLongExtra(Intent.EXTRA_UID,0);
         if (mQuinta==null){
             ((TextView) findViewById(R.id.tvQuintaEditarTitulo)).setText(R.string.nueva_quinta);
             mQuinta = new Quinta();
@@ -43,7 +41,6 @@ public class QuintaEditarActivity extends AppCompatActivity {
         etFamiliaNombre.setInputType(InputType.TYPE_NULL);
         etFamiliaNombre.setOnClickListener(view -> {
             Intent intent = new Intent(this.getApplication(), FamiliasActivity.class);
-            intent.putExtra(Intent.EXTRA_UID,uid);
             intent.putExtra(FamiliasActivity.EXTRA_MODO_ELEGIR,true);
             startActivityForResult(intent,1);
         });
@@ -76,7 +73,7 @@ public class QuintaEditarActivity extends AppCompatActivity {
         }else{
             mFamilia=AppDatabase.getInstance(this).familiaDao().getById(mQuinta.familiaId);
         }
-        EditText etFamiliaNombre = (EditText) findViewById(R.id.etQuintaEditarFamiliaNombre);
+        EditText etFamiliaNombre = findViewById(R.id.etQuintaEditarFamiliaNombre);
         etFamiliaNombre.setText(mFamilia.nombre);
         findViewById(R.id.etQuintaEditarDireccion).requestFocus();
     }

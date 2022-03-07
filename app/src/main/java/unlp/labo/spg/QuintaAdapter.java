@@ -22,6 +22,7 @@ public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder
     private final List<QuintaFamilia> mDataAll;
     private final LayoutInflater mInflater;
     private QuintaAdapter.ItemClickListener mClickListener;
+    public boolean modoElegir=true;
 
     QuintaAdapter(Context context, List<QuintaFamilia> data) {
         this.mInflater = LayoutInflater.from(context);
@@ -42,6 +43,7 @@ public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder
         viewHolder.tvNombre.setText(mQuintaFamilia.quinta.nombre);
         viewHolder.tvDireccion.setText(mQuintaFamilia.quinta.direccion);
         viewHolder.tvFamiliaNombre.setText("De:" + mQuintaFamilia.familia.nombre);
+        viewHolder.ibBorrar.setVisibility(modoElegir?View.INVISIBLE:View.VISIBLE);
     }
 
     @Override
@@ -91,11 +93,11 @@ public class QuintaAdapter extends RecyclerView.Adapter<QuintaAdapter.ViewHolder
 
         public ViewHolder(View view) {
             super(view);
-            tvNombre = (TextView) view.findViewById(R.id.tvItemQuintaNombre);
-            tvDireccion = (TextView) view.findViewById(R.id.tvItemQuintaDirección);
-            tvFamiliaNombre = (TextView) view.findViewById(R.id.tvItemQuintaFamiliaNombre);
-            ibEditar = (ImageButton) view.findViewById(R.id.ibItemQuintaEditar);
-            ibBorrar = (ImageButton) view.findViewById(R.id.ibItemQuintaBorrar);
+            tvNombre = view.findViewById(R.id.tvItemQuintaNombre);
+            tvDireccion = view.findViewById(R.id.tvItemQuintaDirección);
+            tvFamiliaNombre = view.findViewById(R.id.tvItemQuintaFamiliaNombre);
+            ibEditar = view.findViewById(R.id.ibItemQuintaEditar);
+            ibBorrar = view.findViewById(R.id.ibItemQuintaBorrar);
             ibEditar.setOnClickListener(this);
             ibBorrar.setOnClickListener(this);
             itemView.setOnClickListener(this);

@@ -20,16 +20,14 @@ public class VisitaEditarActivity extends AppCompatActivity {
     public static final String EXTRA_VISITA_DETALLE = "visitaDetalle";
 
     private VisitaDetalle mVisitaDetalle ;
-    long uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visita_editar);
-        uid = getIntent().getLongExtra(Intent.EXTRA_UID,0);
         mVisitaDetalle = (VisitaDetalle) getIntent().getSerializableExtra(EXTRA_VISITA_DETALLE);
-        TextView tvTitulo = (TextView) findViewById(R.id.textViewVisitaTitle);
-        EditText etQuintaNombre = (EditText) findViewById(R.id.etQuintaEditarNombre);
+        TextView tvTitulo = findViewById(R.id.textViewVisitaTitle);
+        EditText etQuintaNombre = findViewById(R.id.etQuintaEditarNombre);
 
         if (mVisitaDetalle.visita.id == 0) {
             tvTitulo.setText(R.string.nueva_visita);
@@ -38,12 +36,12 @@ public class VisitaEditarActivity extends AppCompatActivity {
             Quinta mQuinta=AppDatabase.getInstance(this).quintaDao().getById(mVisitaDetalle.visita.quintaId);
             etQuintaNombre.setText(mQuinta.nombre);
         }
-        EditText etSupCampo = (EditText) findViewById(R.id.editTextSupCampo);
+        EditText etSupCampo = findViewById(R.id.editTextSupCampo);
         if(mVisitaDetalle.visita.supCampo>0){
             etSupCampo.setText(String.valueOf(mVisitaDetalle.visita.supCampo));
         }
         etSupCampo.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        EditText etSupInver = (EditText) findViewById(R.id.editTextSupInver);
+        EditText etSupInver = findViewById(R.id.editTextSupInver);
         etSupCampo.setImeOptions(EditorInfo.IME_ACTION_GO);
         if(mVisitaDetalle.visita.supInver>0){
             etSupInver.setText(String.valueOf(mVisitaDetalle.visita.supInver));
@@ -51,7 +49,6 @@ public class VisitaEditarActivity extends AppCompatActivity {
         etQuintaNombre.setInputType(InputType.TYPE_NULL);
         etQuintaNombre.setOnClickListener(view -> {
             Intent intent = new Intent(this.getApplication(), QuintasActivity.class);
-            intent.putExtra(Intent.EXTRA_UID,uid);
             intent.putExtra(QuintasActivity.EXTRA_MODO_ELEGIR,true);
             startActivityForResult(intent, 1);
         });
@@ -67,7 +64,7 @@ public class VisitaEditarActivity extends AppCompatActivity {
         }else{
             mQuinta=AppDatabase.getInstance(this).quintaDao().getById(mVisitaDetalle.visita.quintaId);
         }
-        EditText etQuintaNombre = (EditText) findViewById(R.id.etQuintaEditarNombre);
+        EditText etQuintaNombre = findViewById(R.id.etQuintaEditarNombre);
         etQuintaNombre.setText(mQuinta.nombre);
         findViewById(R.id.editTextSupCampo).requestFocus();
     }

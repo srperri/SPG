@@ -51,7 +51,6 @@ public class FamiliaInfoActivity extends AppCompatActivity implements QuintaAdap
     public void onItemClick(int position) {
         Quinta quinta = mAdapter.getItem(position).quinta;
         Intent intent = new Intent(this.getApplication(), QuintaInfoActivity.class);
-        intent.putExtra(Intent.EXTRA_UID,mFamilia.userId);
         intent.putExtra(QuintaInfoActivity.EXTRA_QUINTA, quinta);
         startActivity(intent);
     }
@@ -60,7 +59,6 @@ public class FamiliaInfoActivity extends AppCompatActivity implements QuintaAdap
     public void onItemEditarClick(int position) {
         Quinta quinta = mAdapter.getItem(position).quinta;
         Intent intent = new Intent(this.getApplication(), QuintaEditarActivity.class);
-        intent.putExtra(Intent.EXTRA_UID,mFamilia.userId);
         intent.putExtra(QuintaEditarActivity.EXTRA_QUINTA, quinta);
         startActivity(intent);
     }

@@ -23,6 +23,7 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
     private final List<Familia> mDataAll;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    public boolean modoElegir=true;
 
     FamiliaAdapter(Context context, List<Familia> data) {
         this.mInflater = LayoutInflater.from(context);
@@ -41,6 +42,7 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Familia mFamilia = mData.get(position);
         viewHolder.tvNombre.setText(mFamilia.nombre);
+        viewHolder.ibBorrar.setVisibility(modoElegir?View.INVISIBLE:View.VISIBLE);
     }
 
     @Override

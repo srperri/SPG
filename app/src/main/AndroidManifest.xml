@@ -10,10 +10,12 @@
         android:roundIcon="@mipmap/spg_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeguimientoSPG"
-        tools:ignore="ExtraText">
+        tools:ignore="ExtraText"
+        >
         <activity
             android:name=".FamiliaInfoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".VisitasActivity"/>
         <activity
             android:name=".QuintaInfoActivity"
             android:exported="false" />
@@ -22,7 +24,8 @@
             android:exported="false" />
         <activity
             android:name=".FamiliasActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".VisitasActivity"/>
         <activity
             android:name=".UsuarioEditarActivity"
             android:exported="false" />
@@ -34,7 +37,12 @@
             android:exported="false" />
         <activity
             android:name=".VisitasActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".QuintasActivity"
             android:exported="false" />
@@ -46,13 +54,7 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

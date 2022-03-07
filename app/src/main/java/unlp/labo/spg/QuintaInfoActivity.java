@@ -26,17 +26,15 @@ public class QuintaInfoActivity extends AppCompatActivity implements VisitaAdapt
     private VisitaAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private AppDatabase db;
-    long uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quinta_info);
-        TextView tvNombre = (TextView) findViewById(R.id.tvQuintaInfoNombre);
-        TextView tvFamiliaNombre = (TextView) findViewById(R.id.tvQuintaInfoFamiliaNombre);
-        TextView tvDireccion = (TextView) findViewById(R.id.tvQuintaInfoDireccion);
+        TextView tvNombre = findViewById(R.id.tvQuintaInfoNombre);
+        TextView tvFamiliaNombre = findViewById(R.id.tvQuintaInfoFamiliaNombre);
+        TextView tvDireccion = findViewById(R.id.tvQuintaInfoDireccion);
         mQuinta = (Quinta) getIntent().getSerializableExtra(EXTRA_QUINTA);
-        uid= getIntent().getLongExtra(Intent.EXTRA_UID,0);
         db = AppDatabase.getInstance(this);
         Familia mFamilia = db.familiaDao().getById(mQuinta.familiaId);
         tvNombre.setText(mQuinta.nombre);
@@ -62,7 +60,6 @@ public class QuintaInfoActivity extends AppCompatActivity implements VisitaAdapt
     public void onItemClick(int position) {
         VisitaDetalle mVisitaDetalle = db.visitaDao().getVisitaDetalleById(mAdapter.getItem(position).visita.id);
         Intent intent = new Intent(this.getApplication(), VisitaInfoActivity.class);
-        intent.putExtra(Intent.EXTRA_UID,uid);
         intent.putExtra(VisitaEditarActivity.EXTRA_VISITA_DETALLE, mVisitaDetalle);
         startActivity(intent);
     }
@@ -71,7 +68,6 @@ public class QuintaInfoActivity extends AppCompatActivity implements VisitaAdapt
     public void onItemEditarClick(int position) {
         VisitaDetalle mVisitaDetalle = db.visitaDao().getVisitaDetalleById(mAdapter.getItem(position).visita.id);
         Intent intent = new Intent(this.getApplication(), VisitaEditarActivity.class);
-        intent.putExtra(Intent.EXTRA_UID,uid);
         intent.putExtra(VisitaEditarActivity.EXTRA_VISITA_DETALLE, mVisitaDetalle);
         startActivity(intent);
     }

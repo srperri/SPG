@@ -2,12 +2,16 @@ package unlp.labo.spg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.material.internal.ContextUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,17 +44,14 @@ public class LoginActivity extends AppCompatActivity {
             usuarioDao.insert(usuario);
         }
         Button btNuevo=findViewById(R.id.btNuevo);
-        btNuevo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, UsuarioEditarActivity.class);
-                startActivity(intent);
-            }
+        btNuevo.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, UsuarioEditarActivity.class);
+            startActivity(intent);
         });
     }
 
     public void init_session(View view) {
-        EditText etUserName = (EditText) findViewById(R.id.etUsuario);
+        EditText etUserName = findViewById(R.id.etUsuario);
         String userName = etUserName.getText().toString();
         if (userName.equalsIgnoreCase("reinit")) {
             reinit_db();
@@ -58,12 +59,16 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        EditText editTextPassword = (EditText) findViewById(R.id.etPassword);
+        EditText editTextPassword = findViewById(R.id.etPassword);
         String password = editTextPassword.getText().toString();
         Usuario usuario = usuarioDao.validate(userName, password);
         if (usuario != null) {
             Intent intent = new Intent(this, VisitasActivity.class);
-            intent.putExtra(Intent.EXTRA_UID, usuario.getUid());
+            intent.putExtra("uid", usuario.getUid());
+            SharedPreferences sharedPref = getSharedPreferences("user",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putLong("uid", usuario.getUid());
+            editor.commit();
             startActivity(intent);
             // Do something in response to button
             finish();

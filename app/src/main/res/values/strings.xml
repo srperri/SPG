@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Guía de Seguimiento SPG</string>
+    <string name="app_name">Guía SPG</string>
     <string name="main_title_part1">Seguimiento de Cultivos</string>
     <string name="main_title_part2">Agroecológicos</string>
     <string name="init_session_button">iniciar</string>

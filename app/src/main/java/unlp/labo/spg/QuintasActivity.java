@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +31,7 @@ public class QuintasActivity extends AppCompatActivity implements QuintaAdapter.
 
     private QuintaAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private boolean mModoElegir;
+    public boolean mModoElegir;
     protected long uid;
     protected Menu mOptionsMenu;
 
@@ -37,16 +39,16 @@ public class QuintasActivity extends AppCompatActivity implements QuintaAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quintas);
-        uid = getIntent().getLongExtra(Intent.EXTRA_UID, 0);
+        SharedPreferences sharedPref = getSharedPreferences("user", Context.MODE_PRIVATE);
+        uid = sharedPref.getLong("uid", 0);
         mModoElegir = getIntent().getBooleanExtra(EXTRA_MODO_ELEGIR, false);
-        TextView tvTitulo = (TextView) findViewById(R.id.tvQuintasTitulo);
+        TextView tvTitulo = findViewById(R.id.tvQuintasTitulo);
         tvTitulo.setText(mModoElegir ? R.string.seleccione_una_quinta : R.string.quintas);
         mRecyclerView = findViewById(R.id.rvQuintas);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         FloatingActionButton fab = findViewById(R.id.faQuintasNueva);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(QuintasActivity.this, QuintaEditarActivity.class);
-            intent.putExtra(Intent.EXTRA_UID,uid);
             startActivityForResult(intent, 1);
         });
     }
@@ -56,6 +58,7 @@ public class QuintasActivity extends AppCompatActivity implements QuintaAdapter.
         super.onResume();
         List<QuintaFamilia> mQuintas = AppDatabase.getInstance(this).quintaDao().getQuintaFamilia(uid);
         mAdapter = new QuintaAdapter(this, mQuintas);
+        mAdapter.modoElegir=mModoElegir;
         mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
         if (mOptionsMenu != null) {
@@ -96,7 +99,6 @@ public class QuintasActivity extends AppCompatActivity implements QuintaAdapter.
         } else {
             Intent intent = new Intent(this, QuintaInfoActivity.class);
             intent.putExtra(QuintaEditarActivity.EXTRA_QUINTA, mAdapter.getItem(position).quinta);
-            intent.putExtra(Intent.EXTRA_UID,uid);
             startActivity(intent);
         }
     }
@@ -105,7 +107,6 @@ public class QuintasActivity extends AppCompatActivity implements QuintaAdapter.
     public void onItemEditarClick(int position) {
         Intent intent = new Intent(this, QuintaEditarActivity.class);
         intent.putExtra(QuintaEditarActivity.EXTRA_QUINTA, mAdapter.getItem(position).quinta);
-        intent.putExtra(Intent.EXTRA_UID,uid);
         startActivity(intent);
     }
 

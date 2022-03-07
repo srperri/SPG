@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,7 +38,7 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     VisitaAdapter mAdapter;
     RecyclerView mRecyclerView;
     AppDatabase db;
-    long uid;
+    public long uid;
     private Menu mOptionsMenu;
     boolean busquedaActiva =false;
 
@@ -45,7 +46,8 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visitas);
-        uid = getIntent().getLongExtra(Intent.EXTRA_UID, 0);
+        SharedPreferences sharedPref = getSharedPreferences("user",Context.MODE_PRIVATE);
+        uid = sharedPref.getLong("uid", 0);
         if (uid == 0) {
             startActivity(new Intent(this.getApplication(), LoginActivity.class));
             finish();
@@ -54,9 +56,7 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
         mRecyclerView = findViewById(R.id.rvVisitas);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         FloatingActionButton mFAB = findViewById(R.id.faVisitasNueva);
-        mFAB.setOnClickListener(view -> {
-            nueva_visita();
-        });
+        mFAB.setOnClickListener(view -> nueva_visita());
     }
 
     @Override
@@ -96,20 +96,21 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
                 return true;
             case R.id.itMenuVisitasFamilias:
                 intent =new Intent(this.getApplication(), FamiliasActivity.class);
-                intent.putExtra(Intent.EXTRA_UID, uid);
                 startActivity(intent);
                 return true;
             case R.id.itMenuVisitasQuintas:
                 intent= new Intent(this.getApplication(), QuintasActivity.class);
-                intent.putExtra(Intent.EXTRA_UID, uid);
                 startActivity(intent);
                 return true;
             case R.id.itMenuVisitasUsuario:
                 intent = new Intent(this, UsuarioEditarActivity.class);
-                intent.putExtra(Intent.EXTRA_UID, uid);
                 startActivity(intent);
                 return true;
             case R.id.itMenuVisitasCerrarSesion:
+                SharedPreferences sharedPref = getSharedPreferences("user",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.clear();
+                editor.commit();
                 intent=new Intent(this.getApplication(), LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -136,12 +137,19 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences sharedPref = getSharedPreferences("user",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.commit();
+    }
 
     @Override
     public void onItemClick(int position) {
         VisitaDetalle mVisitaDetalle = db.visitaDao().getVisitaDetalleById(mAdapter.getItem(position).visita.id);
         Intent intent = new Intent(this.getApplication(), VisitaInfoActivity.class);
-        intent.putExtra(Intent.EXTRA_UID, uid);
         intent.putExtra(VisitaInfoActivity.EXTRA_VISITA_DETALLE, mVisitaDetalle);
         startActivity(intent);
     }
@@ -150,7 +158,6 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     public void onItemEditarClick(int position) {
         VisitaDetalle mVisitaDetalle = db.visitaDao().getVisitaDetalleById(mAdapter.getItem(position).visita.id);
         Intent intent = new Intent(this.getApplication(), VisitaEditarActivity.class);
-        intent.putExtra(Intent.EXTRA_UID, uid);
         intent.putExtra(VisitaEditarActivity.EXTRA_VISITA_DETALLE, mVisitaDetalle);
         startActivity(intent);
     }
@@ -187,7 +194,6 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
             mVisitaDetalle.detalles.add(mDetalle);
         }
         Intent intent = new Intent(this.getApplication(), VisitaEditarActivity.class);
-        intent.putExtra(Intent.EXTRA_UID, uid);
         intent.putExtra(VisitaEditarActivity.EXTRA_VISITA_DETALLE, mVisitaDetalle);
         startActivity(intent);
     }
@@ -195,31 +201,29 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     private void busquedaAvanzada(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_buscar_visita, null);
-        VisitaAdapter.ItemClickListener itemClickListener=this;
-        Context context=this;
         builder.setView(mView)
                 .setTitle(R.string.busqueda_avanzada)
                 .setNegativeButton(R.string.aceptar, (dialog, id) -> {
-                    Date fecha=null;
+                    Date fecha = null;
                     try {
-                        String s=((EditText) mView.findViewById(R.id.etBuscarVisitaFecha)).getText().toString().trim();
-                        fecha=new SimpleDateFormat("dd/MM/yyyy").parse( s);
-                    }catch (ParseException e) {
+                        String s = ((EditText) mView.findViewById(R.id.etBuscarVisitaFecha)).getText().toString().trim();
+                        fecha = new SimpleDateFormat("dd/MM/yyyy").parse(s);
+                    } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     List<VisitaQuintaFamilia> mVisitas = db.visitaDao().getVisitaQuintaFamilia(uid,
                             ((EditText) mView.findViewById(R.id.etBuscarVisitaQuintaNombre)).getText().toString().trim(),
                             ((EditText) mView.findViewById(R.id.etBuscarVisitaFamiliaNombre)).getText().toString().trim(),
                             fecha);
-                    if (mVisitas.size()>0) {
-                        mAdapter = new VisitaAdapter(context, mVisitas);
-                        mAdapter.setClickListener(itemClickListener);
+                    if (mVisitas.size() > 0) {
+                        mAdapter = new VisitaAdapter(VisitasActivity.this, mVisitas);
+                        mAdapter.setClickListener(VisitasActivity.this);
                         mRecyclerView.setAdapter(mAdapter);
-                        busquedaActiva =true;
-                        invalidateOptionsMenu();
-                        Toast.makeText(getApplicationContext(), "Se encontraron "+mVisitas.size()+" coincidencias.", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "No se encontraron coincidencias.", Toast.LENGTH_SHORT).show();
+                        busquedaActiva = true;
+                        VisitasActivity.this.invalidateOptionsMenu();
+                        Toast.makeText(VisitasActivity.this.getApplicationContext(), "Se encontraron " + mVisitas.size() + " coincidencias.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(VisitasActivity.this.getApplicationContext(), "No se encontraron coincidencias.", Toast.LENGTH_SHORT).show();
                     }
                 });
         AlertDialog mDialog = builder.create();
