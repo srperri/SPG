@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -62,7 +61,7 @@ public class QuintasActivity extends AppCompatActivity implements QuintaAdapter.
         mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
         if (mOptionsMenu != null) {
-            SearchView searchView = (SearchView) mOptionsMenu.findItem(R.id.itMenuQuintasFiltrar).getActionView();
+            SearchView searchView = (SearchView) mOptionsMenu.findItem(R.id.itMenuQuintasBuscar).getActionView();
             searchView.setIconified(true);
             searchView.onActionViewCollapsed();
         }
@@ -72,7 +71,7 @@ public class QuintasActivity extends AppCompatActivity implements QuintaAdapter.
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.menu_quintas, menu);
-        MenuItem filtrar= menu.findItem(R.id.itMenuQuintasFiltrar);
+        MenuItem filtrar= menu.findItem(R.id.itMenuQuintasBuscar);
         SearchView sv= (SearchView) filtrar.getActionView();
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

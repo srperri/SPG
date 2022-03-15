@@ -3,28 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/itMenuVisitaFiltrar"
+        android:id="@+id/itMenuVisitaBuscar"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="Filtrar"
+        android:title="@string/buscar"
         app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView" />
     <item
-        android:id="@+id/itMenuVisitasBuscar"
-        android:title="Búsqueda avanzada"/>
+        android:id="@+id/itMenuVisitasFiltrar"
+        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:title="@string/filtrar"
+        app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/itMenuVisitasQuitarBusqueda"
-        android:title="QuitarBúsqueda"
-        android:visible="false"/>
+        android:id="@+id/itMenuVisitasQuitarFiltro"
+        android:icon="@drawable/ic_baseline_filter_list_off_24"
+        android:title="@string/quitarfiltro"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/itMenuVisitasFamilias"
-        android:title="Familias" />
+        android:title="@string/familias" />
     <item
         android:id="@+id/itMenuVisitasQuintas"
-        android:title="Quintas" />
+        android:title="@string/quintas" />
     <item
         android:id="@+id/itMenuVisitasUsuario"
-        android:title="Usuario" />
+        android:title="@string/usuario" />
     <item
         android:id="@+id/itMenuVisitasCerrarSesion"
-        android:title="Cerrar sesión" />
+        android:title="@string/cerrar_sesion" />
 </menu>

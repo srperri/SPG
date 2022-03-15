@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -66,7 +65,7 @@ public class FamiliasActivity extends AppCompatActivity implements FamiliaAdapte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_familias, menu);
-        MenuItem filtrar= menu.findItem(R.id.itMenuFamiliaFiltrar);
+        MenuItem filtrar= menu.findItem(R.id.itMenuFamiliaBuscar);
         SearchView sv= (SearchView) filtrar.getActionView();
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

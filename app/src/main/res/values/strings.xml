@@ -43,4 +43,7 @@
     <string name="aceptar">Aceptar</string>
     <string name="finalizar">Finalizar</string>
     <string name="editar_visita">Editar Visita</string>
+    <string name="quitarfiltro">Quitar Filtro</string>
+    <string name="usuario">Usuario</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
 </resources>

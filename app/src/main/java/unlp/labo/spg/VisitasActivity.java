@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -63,8 +62,9 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.menu_visitas, menu);
-        menu.findItem(R.id.itMenuVisitasQuitarBusqueda).setVisible(busquedaActiva);
-        MenuItem buscar = menu.findItem(R.id.itMenuVisitaFiltrar);
+        menu.findItem(R.id.itMenuVisitasFiltrar).setVisible(!busquedaActiva);
+        menu.findItem(R.id.itMenuVisitasQuitarFiltro).setVisible(busquedaActiva);
+        MenuItem buscar = menu.findItem(R.id.itMenuVisitaBuscar);
         SearchView sv = (SearchView) buscar.getActionView();
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -86,10 +86,10 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
-            case R.id.itMenuVisitasBuscar:
+            case R.id.itMenuVisitasFiltrar:
                 busquedaAvanzada();
                 return true;
-            case R.id.itMenuVisitasQuitarBusqueda:
+            case R.id.itMenuVisitasQuitarFiltro:
                 busquedaActiva =false;
                 invalidateOptionsMenu();
                 onResume();
@@ -127,7 +127,7 @@ public class VisitasActivity extends AppCompatActivity implements VisitaAdapter.
         mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
         if (mOptionsMenu != null) {
-            SearchView searchView = (SearchView) mOptionsMenu.findItem(R.id.itMenuVisitaFiltrar).getActionView();
+            SearchView searchView = (SearchView) mOptionsMenu.findItem(R.id.itMenuVisitaBuscar).getActionView();
             searchView.setIconified(true);
             searchView.onActionViewCollapsed();
         }
